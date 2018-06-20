@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<!-- https://github.com/keen/dashboards -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Layouts &raquo; Hero-Thirds</title>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.2/holder.min.js" type="text/javascript"></script>
+  <script>
+    Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/country-region-dropdown-menu/1.2.1/geodatasource-cr.min.js" type="text/javascript"></script>
+
+  <!-- keen-analysis@1.2.2 -->
+  <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.2.js" type="text/javascript"></script>
+
+  <!-- keen-dataviz@1.1.3 -->
+  <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.css" rel="stylesheet" />
+  <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.js" type="text/javascript"></script>
+
+  <!-- Dashboard -->
+  <link rel="stylesheet" type="text/css" href="css/keen-dashboards.css" />
+
+  <!-- try resize-->
+
+</head>
+<script>var current_country = "Australia"</script>
+
+<body class="keen-dashboard" style="padding-top: 80px;">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="prin-title">Estadístiques de Kgs repartits a entitats</div>
+
+      <div class="navbar-collapse collapse">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="subtitle"> @lloc, @anys i @filtres</div>
+    <div class="row">
+    <div class="col-md-3">
+      <div class="chart-wrapper">
+          <div class="chart-title">
+            Família aliments
+          </div>
+          <div class="chart-stage">
+            <form action="">
+            <input type="checkbox" name="familia" value="Total"> Total<br>
+            <input type="checkbox" name="familia" value="Làctics i derivats"> Làctics i derivats<br>
+            <input type="checkbox" name="familia" value="Farines i derivats"> Farines i derivats<br>
+            <input type="checkbox" name="familia" value="Arròs,pasta,sucre,llegums"> Arròs,pasta,sucre,llegums<br>
+            <input type="checkbox" name="familia" value="Conserves i plats preparats"> Conserves i plats preparats<br>
+            <input type="checkbox" name="familia" value="Conserves i plats preparats"> Conserves i plats preparats<br>
+            <input type="checkbox" name="familia" value="Olis i greixos"> Olis i greixos<br>
+            <input type="checkbox" name="familia" value="Carn,peix,embotits"> Carn,peix,embotits<br>
+            <input type="checkbox" name="familia" value="Begudes i infusions"> Begudes i infusions<br>
+            <input type="checkbox" name="familia" value="Fruites i verdures fresques"> Fruites i verdures fresques<br>
+            <input type="checkbox" name="familia" value="Congelats"> Congelats
+            </form>
+          </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="row">
+        <div id="grid-1-1">
+          <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments repartits
+          </div>
+        <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="topo/d3.v4.min.js"></script>
+            <script src="topo/topojson.v1.min.js"></script>
+            <script src="topo/colorbrewer.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <div id="chart-map1">
+              <script src='js/map.js'></script>
+            </div>
+          </div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        </div>
+      </div>
+      <div class="row">
+        <div id="grid-1-1">
+          <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments/persones
+          </div>
+        <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="topo/d3.v4.min.js"></script>
+            <script src="topo/topojson.v1.min.js"></script>
+            <script src="topo/colorbrewer.min.js"></script>
+            <div id="chart-map2">
+              <script src='js/map2.js'></script>
+            </div>
+          </div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="row">
+           <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments repartits
+          </div>
+          <div class="chart-stage">
+            <script src='js/d3-waffle.js'></script>
+            <script src='js/waffle.js'></script>
+            <div class="container" id="container-2"></div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+          </div>
+        </div>
+        </div>
+        <div class="row">
+           <div class="chart-wrapper">
+          <div class="chart-title">
+            Persones ateses
+          </div>
+          <div class="chart-stage">
+            <!-- <img data-src="holder.js/100%x240/white"> -->
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <div id="chart"></div>
+            <script src='js/pieV3.js'></script>
+            <script src='js/d3-line-chart.js'></script>
+            <script src='js/lines.js'></script>
+
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+        <div id="grid-1-1">
+          <script src="topo/highcharts.js"></script>
+          <script src="topo/series-label.js"></script>
+          <script src="topo/exporting.js"></script>
+          <script src="topo/export-data.js"></script>
+
+          <div id="container">
+            <script src='js/line-chart.js'></script>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+</body>
+
+
+</html>
