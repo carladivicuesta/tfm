@@ -10,6 +10,8 @@ var projection = d3.geoMercator();
         .domain([0, 200000 ])
         .range(colorbrewer.Blues[9]);
 
+      colorScale.nice();
+
       var colorLegend = d3.legendColor()
         .labelFormat(d3.format(".0f"))
         .scale(colorScale)
@@ -56,18 +58,19 @@ d3.json("mapes/comarques.json", function(error, cat) {
             .style("stroke-width", "1")
             .attr("fill","#08519c")
             .attr("transform","translate(-100)")
-            .on("click", function() {
-                changemap(map1);
-            });
+            .on("click", function(){
+             // changemap1()
+           });
 
         var mylegend = svg.append('g').attr("transform","translate(300,90)")
         mylegend.call(colorLegend);
 
   // Funció per canviar de mapa, no funciona 
-  function changemap(map) {
-    myMap = myMap.data(topojson.feature(map, map.objects.countries).features);
-    myMap.enter().append("path");
-    myMap.attr("d", path);
-    myMap.exit().remove();
+  function changemap1(d) {
+    myMap = myMap.data(topojson.feature(cat, cat.objects.com).features);
+    myMap.enter().append("path")
+    .attr("d", path)
+    .exit().remove();
   }
+
 });

@@ -44,10 +44,10 @@ d3.json("mapes/comarques.json", function(error, cat) {
       .translate(t);
 
   var map2 = svg2.append('g').attr('class', 'boundary');
-        myMap = map2.selectAll('path').data(provincies.features);
+        myMap2 = map2.selectAll('path').data(provincies.features);
 
         //Enter
-        myMap.enter()
+        myMap2.enter()
             .append('path')
             .attr('d', path2)
             .style("stroke", "#000")

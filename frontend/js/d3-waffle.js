@@ -12,11 +12,12 @@ function d3waffle() {
   function chart(selection) {
     
     selection.each(function(data) {
+      console.log(data);
 
       selection.selectAll("*").remove();
   
       /* setting parameters and data */
-      var idcontainer = selection[0][0].id; // I need to change thiz plz
+      var idcontainer = this.id; 
       var total = d3.sum(data, function(d) { return d.value; });
 
       /* updating data */
@@ -37,9 +38,11 @@ function d3waffle() {
         });
       });
 
+
       detaildata.forEach(function(d, i){
-        detaildata[i].col = griddata[i][0];
-        detaildata[i].row = griddata[i][1];
+          detaildata[i].col = griddata[i][0];
+          detaildata[i].row = griddata[i][1];
+        
       })
 
       /*console.log("detail data length: ", detaildata.length)*/
@@ -120,7 +123,6 @@ function d3waffle() {
             .html(function(d){ return icon; })
             .attr('class', function(d){ return d.class; })
             .attr('font-family', 'FontAwesome')
-            .attr("transform", function(d) { return "translate(" + gridSize/2 + "," + 5/6*gridSize  + ")"; })
             .style('fill', function(d){ return colorscale(d.class); })
             /*.style("font-size", function(d) {
               val = 9;
@@ -135,7 +137,6 @@ function d3waffle() {
             .style("opacity", 1)
             .html(function(d){ return d.name; })
             .attr('class', function(d){ return "waffle-legend-text" + " " + d.class; })
-            .attr("transform", function(d) { return "translate(" + gridSize/2 + "," + 5/6*gridSize  + ")"; })
 
       function mouseover(d){
         tooltip.transition().duration(100).style("opacity", .9);
