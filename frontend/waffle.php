@@ -8,7 +8,7 @@ $conn = OpenCon();
 $A = '"A"';
 $B = '"B"';
 
-$sql = "SELECT * FROM bages_quant";
+$sql = "SELECT MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant GROUP BY MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

@@ -1,5 +1,5 @@
 $(function() {
-        
+        var parseDate = d3.timeParse("%Y");
 
         var data = [
           { "name": "Total", "value": 10}
@@ -24,7 +24,7 @@ $(function() {
               //d.DATA = d.DATA.substring(0,7);
               d.DATA = parseDate(d.DATA);
             });
-
+          console.log("data0json",data);
           var data2 = color.domain().map(function(name) {
               if (name=="total") return {
                   name: "Altres",
@@ -35,7 +35,7 @@ $(function() {
                 value: d3.sum(data, function(d) { return d[name]; })/total*100,
               };
             });
- 
+          console.log("data1json",data2);
 
           var data2old = [
             { "name": "Total", "value": 0},

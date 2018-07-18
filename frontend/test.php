@@ -14,8 +14,6 @@ $sql = "SELECT * FROM vcomarca_quant";
   // 2) Query database for data
   //--------------------------------------------------------------------------
   $result = mysqli_query($conn, $sql);     
-
-
       //query
   $data = array();
 	while ( $row = mysqli_fetch_assoc($result) )
