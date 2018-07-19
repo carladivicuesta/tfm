@@ -12,7 +12,6 @@ function d3waffle() {
   function chart(selection) {
     
     selection.each(function(data) {
-      console.log(data);
 
       selection.selectAll("*").remove();
   

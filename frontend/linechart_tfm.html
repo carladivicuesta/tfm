@@ -108,7 +108,7 @@ d3.csv("dades/join2.csv", function(error, data) {
         })
       };
     });
- 
+  console.log("sources",sources);
     x.domain(d3.extent(data, function(d) { return d.DATA; }));
     y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); }) ]);
     //y.domain([d3.min(sources, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
