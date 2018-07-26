@@ -2,13 +2,17 @@
 var datal1;
   var parseDate = d3.timeParse("%Y");
   var total;
+  var family = ["A","B","C","D","E","F","G","H","I"];
 
-  var linechartAjax = function(name) {
+  var linechartAjax = function(name,families) {
+    console.log("f1",families);
+    family = families
     $(function () {
         $.ajax({                                      
           url: name+'.php',                  //the script to call to get data          
-          data: "",                        //you can insert url argumnets here to pass to api.php
-                                           //for example "id=5&parent=6"
+          data: {'param' : families},
+          //Cambiar a type: POST si necesario
+          type: "GET",                      //for example "id=5&parent=6"
           dataType: 'json',                //data format      
           success: function(data)          //on recieve of reply
           {
@@ -21,9 +25,9 @@ var datal1;
   };
 
 var linechartDraw = function() {
-    var margin = {top: 10, right: 10, bottom: 100, left: 40},
+    var margin = {top: 10, right: 10, bottom: 20, left: 40},
         margin2 = {top: 430, right: 10, bottom: 20, left: 40},
-        widthl = 800 - margin.left - margin.right,
+        widthl = 900 - margin.left - margin.right,
         heightl = 500 - margin.top - margin.bottom,
         heightl2 = 500 - margin2.top - margin2.bottom;
      
@@ -39,7 +43,7 @@ var linechartDraw = function() {
      
 
     var xAxis = d3.axisBottom(x),//.tickFormat(d3.timeFormat("%Y")[1]),
-        xAxis2 = d3.axisBottom(x2),//.tickFormat(d3.timeFormat("%Y")[1]),
+        xAxis2 = d3.axisBottom(x2),//.ticks(d3.time.years, 1).tickFormat(d3.timeFormat("%Y")[1]),
         yAxis = d3.axisLeft(y),
         yAxis2 = d3.axisLeft(y2);
      
@@ -140,6 +144,7 @@ var linechartDraw = function() {
         function brush() {
           if (!d3.event.sourceEvent) return; // Only transition after input.
           if (!d3.event.selection) return; 
+          if (d3.event.sourceEvent.type === "brush") return;
 
           var d0 = d3.event.selection.map(x2.invert),
               d1 = d0.map(d3.timeYear.round);
@@ -150,6 +155,7 @@ var linechartDraw = function() {
             d1[1] = d3.timeYear.offset(d1[0]);
           }
           d3.select(this).call(d3.event.target.move, d1.map(x2));
+
           //d3.select(this).call(d3.event.target.move, d1.map(x2));
           //var s = d3.event.selection || x2.range();
           //x.domain(s.map(x2.invert, x2));
@@ -167,7 +173,7 @@ var linechartDraw = function() {
             d1[1] = parseDate(d1[1]);
           }
           */
-          waffleAjax("waffle2",2006);
+          waffleAjax("waffle2",d1[0].getFullYear(),d1[1].getFullYear(),family);
 
           setTimeout(function(){
               waffleDraw();
@@ -182,7 +188,7 @@ var linechartDraw = function() {
  
 
 
-linechartAjax("linechart");
+linechartAjax("linechart",family);
 
 
 setTimeout(function(){

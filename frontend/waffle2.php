@@ -5,19 +5,24 @@ include 'db_connection.php';
 header('Content-type: application/json');
 
 $conn = OpenCon();
-$A = '"C"';
-$B = '"B"';
+$Y1 = 2000;
+$Y2 = 2017;
 $jsondata = array();
 if( isset($_GET['param']) ) {
-        $A = $_GET['param'];
+        $Y1 = $_GET['param']-1;
+} 
+if( isset($_GET['param2']) ) {
+        $Y2 = $_GET['param2']+1;
 } 
 
-else {
-  echo("no entra");
-}
+$families = '';
+if( isset($_GET['param3']) ) {
+        $families = implode('", "', $_GET['param3']);
+        $families = '"'.$families.'"';
+} 
 
 
-$sql = "SELECT MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant WHERE YEAR < $A GROUP BY MACROFAMILIA";
+$sql = "SELECT MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant WHERE YEAR > $Y1 AND YEAR < $Y2 AND MACROFAMILIA IN ($families) GROUP BY MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

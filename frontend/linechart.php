@@ -5,10 +5,18 @@ include 'db_connection.php';
 header('Content-type: application/json');
 
 $conn = OpenCon();
-$A = '"A"';
-$B = '"B"';
 
-$sql = "SELECT YEAR, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant GROUP BY YEAR, MACROFAMILIA";
+$families = '';
+if( isset($_GET['param']) ) {
+        //$families = $_GET['param'];
+        $families = implode('", "', $_GET['param']);
+        $families = '"'.$families.'"';
+} 
+else {
+  //echo("no entra");
+}
+//WHERE MACROFAMILIA IN (".implode(',', $families).") 
+$sql = "SELECT YEAR, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant WHERE MACROFAMILIA IN ($families) GROUP BY YEAR, MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

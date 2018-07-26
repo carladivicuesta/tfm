@@ -2,18 +2,21 @@
   var dataw1;
   var parseDate = d3.timeParse("%Y");
   var total;
+  var family = ["A","B","C","D","E","F","G","H","I"];
 
-  var waffleAjax = function(name,year) {
+  var waffleAjax = function(name,year1,year2,families) {
+    family = families
     $(function () {
         $.ajax({                                      
           url: name+'.php',                  //the script to call to get data          
-          data: {'param' : year},
+          data: {'param' : year1, 'param2': year2, 'param3': family},
           //Cambiar a type: POST si necesario
           type: "GET",
           // Formato de datos que se espera en la respuesta
           dataType: 'json',                //data format      
           success: function(data)          //on recieve of reply
           {
+            console.log("succes",year1,year2,family);
             dataw1 = data;
 
             } 
@@ -48,7 +51,7 @@
   };
 
 
-waffleAjax("waffle");
+waffleAjax("waffle2",2000,2017,family);
 
 
 setTimeout(function(){

@@ -8,16 +8,23 @@ function totalFunction() {
     var i;
     for (i = 0; i < x.length; i++) {
       x[i].checked = false;
-      x[i].disabled = true;
     }
+      var families = ["A","B","C","D","E","F","G","H","I"];
+      d3.select("#chart-line svg").remove();
+
+      linechartAjax("linechart",families);
+      setTimeout(function(){
+          linechartDraw();
+      },500);
+
+      waffleAjax("waffle2",2000,2017,families);
+
+      setTimeout(function(){
+          waffleDraw();
+      },500);
+    
   }
-  else {
-    var x = document.getElementsByClassName("typeFamily")
-    var i;
-    for (i = 0; i < x.length; i++) {
-        x[i].disabled = false;
-    }
-  }
+
 }
 
 function typeFamilyFunction() {
@@ -27,14 +34,32 @@ function typeFamilyFunction() {
   var checkBox = document.getElementById("totalCheck");
   var i = 0;
   var trobat = false;
-  while(i<x.length && !trobat) {
+  var families = [];
+  for (i = 0; i < x.length; i++) {
     if (x[i].checked == true){
       trobat = true;
+      families.push(x[i].value);
     }
-    i++;
   }
-  if (trobat) checkBox.checked = false;
+  if (trobat) {
+    checkBox.checked = false;
+    console.log("fam",families);
+    d3.select("#chart-line svg").remove();
+
+    linechartAjax("linechart",families);
+    setTimeout(function(){
+        linechartDraw();
+    },500);
+
+    waffleAjax("waffle2",2000,2017,families);
+    
+    setTimeout(function(){
+        waffleDraw();
+    },500);
+    
+  }
 
   else checkBox.checked = true;
   
 }
+
