@@ -91,18 +91,17 @@ var waffle2Ajax = function(name,year1,year2) {
           //var palette = d3.scale.ordinal().domain(domain).range(range);
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
-                    .rows(3)
+                    .rows(4)
                     .scale(1/4)
                     .icon("&#xf183;")
-                    //.icon("&#xf1b9;")
-                    .adjust(0.425)
+                    .adjust(0.375)
                     .colorscale(d3.scale.category10())
                     .appearancetimes(function(d, i){
                       mod = 13;
                       val = i % mod;
                       return val / mod * 150;
                     })
-                    .height(200);
+                    .height(170);
     d3.select("#chartwf-2")
       .datum(domain)
       .call(chart4); 

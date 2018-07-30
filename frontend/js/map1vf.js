@@ -14,6 +14,9 @@ var data1;
 	var color1 = d3.scaleThreshold() 
 		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
+	var color2 = d3.scaleThreshold() 
+		.domain([0,1,3,5,10,20,80,150])
+		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
   	var funcajax = function(name) {
   		$(function () {
@@ -63,8 +66,7 @@ var data1;
 		  	d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
-					processMun(topo,data)			//topo for topographic info, data for metadata
-
+					processMun(topo,data);
 				});
 		  }
 		
@@ -111,7 +113,11 @@ var data1;
 		  alert("Hola");
 		  funcajax("test2");
 		  d3.select(".boundary").remove();
-		  funcMap("bages.json");
+
+			setTimeout(function(){
+			    funcMap("bages.json");
+			},500);
+		  
 		};
 		
 				
@@ -120,6 +126,7 @@ var data1;
          .append('path')
 		   .attr('class',"comarca")
            .attr('d', path)
+           .style("stroke", "#000")
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .on("click",changemap)
 		   .attr("fill", function(d) {
@@ -132,18 +139,19 @@ var data1;
 		//topo holds info from comarques.topojson; data holds info from població.csv
 		console.log("data1",data1);
 		topo.objects['com']
-			.geometries.forEach(function(d) { d.id = d.properties.MUNICIPI;});
+			.geometries.forEach(function(d) { d.id = +d.properties.MUNICIPI;});
 		// CODICOMAR as id
 
 		data1.forEach ( function(d) { 
 			//first we create an object with all the values
-			d['MUNICIPI'] = d['Municipi'],
+			d['MUNICIPI'] = +d['MUNICIPI'],
 			d['QUANTITAT'] = +d['QUANTITAT'];
 		});
 		var dataKV = data1.reduce(function(res,el) { 
-			console.log(el);
 			res[el.MUNICIPI] = el; 
 			return res; },{});
+
+		
 		// then we create a dictionary, with CODICOMAR as key
 	    var comarques = topojson.feature(topo, topo.objects.com); 
 		
@@ -170,8 +178,10 @@ var data1;
 		   .attr('class',"comarca")
            .attr('d', path)
 		   .attr('id',function(d){return "cid-" +d.id})
+		   .style("stroke", "#000")
 		   .attr("fill", function(d) {
-				return color1(dataKV[d.id].QUANTITAT/10);
+		   		if(dataKV[d.id]) return color2(dataKV[+d.id].QUANTITAT/10);
+		   		else return color2(0);
 			});
 
       };

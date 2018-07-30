@@ -67,7 +67,7 @@ var linechartDraw = function() {
      
     svgl.append("defs").append("clipPath")
         .attr("id", "clip")
-      .append("rect")
+        .append("rect")
         .attr("width", widthl)
         .attr("height", heightl);
      
@@ -123,6 +123,7 @@ var linechartDraw = function() {
             .attr("class", "line")
             .attr("d", function(d) { return line2(d.values); })
             .style("stroke", function(d) {return color(d.key);})
+            .style("stroke-width", "1.5px")
             .attr("clip-path", "url(#clip)");
      
         context.append("g")
