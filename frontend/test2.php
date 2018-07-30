@@ -8,7 +8,7 @@ $conn = OpenCon();
 $A = '"A"';
 $B = '"B"';
 
-$sql = "SELECT * FROM bages_quant";
+$sql = "SELECT * FROM bages";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

@@ -52,13 +52,13 @@
 
 var waffle2Ajax = function(name,year1,year2) {
     $(function () {
-        $.ajax({                                      
+        $.ajax({      
           url: name+'.php',                  //the script to call to get data          
-          data: "",
+          data: {'param' : year1, 'param2': year2, 'param3': family},
           //Cambiar a type: POST si necesario
           type: "GET",
           // Formato de datos que se espera en la respuesta
-          dataType: 'json',                //data format      
+          dataType: 'json',                //data format                                      
           success: function(data)          //on recieve of reply
           {
             dataw2 = data;
@@ -75,20 +75,23 @@ var waffle2Ajax = function(name,year1,year2) {
           //var domain = ["Total", "Làctics i derivats", "Farines i derivats","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     var domain = ["Total", "A", "B","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     
+    var total = 354645982;
 
 
     var domain = dataw2.map(function(el) { 
       return {
           name: "Persones",
-          value: el.quantitat/10000,
+          value: el.quantitat/total*100,
         };
       });
+
+
     console.log("waffle perso",domain);
     var range = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6","#b82e2e", "#dd4477", "#66aa00", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
           //var palette = d3.scale.ordinal().domain(domain).range(range);
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
-                    .rows(2)
+                    .rows(3)
                     .scale(1/4)
                     .icon("&#xf183;")
                     //.icon("&#xf1b9;")

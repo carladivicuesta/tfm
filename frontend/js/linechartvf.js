@@ -178,6 +178,12 @@ var linechartDraw = function() {
           setTimeout(function(){
               waffleDraw();
           },500);
+
+          waffle2Ajax("wafflePersones",d1[0].getFullYear(),d1[1].getFullYear());
+
+          setTimeout(function(){
+              waffle2Draw();
+          },500);
         }
 
 

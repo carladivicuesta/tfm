@@ -6,8 +6,19 @@ header('Content-type: application/json');
 
 $conn = OpenCon();
 
+$Y1 = 2000;
+$Y2 = 2017;
+$jsondata = array();
 
-$sql = "SELECT SUM(quantitat) AS quantitat FROM beneficiaris_comarca";
+if( isset($_GET['param']) ) {
+        $Y1 = $_GET['param']-1;
+
+} 
+if( isset($_GET['param2']) ) {
+        $Y2 = $_GET['param2']+1;
+} 
+
+$sql = "SELECT SUM(quantitat) AS quantitat FROM beneficiaris_comarca WHERE years > $Y1 AND years < $Y2";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

@@ -132,7 +132,7 @@ var data1;
 		//topo holds info from comarques.topojson; data holds info from població.csv
 		console.log("data1",data1);
 		topo.objects['com']
-			.geometries.forEach(function(d) { d.id = d.properties.NOM_MUNI;});
+			.geometries.forEach(function(d) { d.id = d.properties.MUNICIPI;});
 		// CODICOMAR as id
 
 		data1.forEach ( function(d) { 
