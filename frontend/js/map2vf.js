@@ -1,4 +1,7 @@
 var data2;
+var year1 = 2000;
+var year2 = 2017;
+var family = ["A","B","C","D","E","F","G","H","I"];
 	var width2  = 500,
     	height2 = 250,
 	      projection2 = d3.geoMercator(),
@@ -12,21 +15,23 @@ var data2;
 
 	/* The scale */	  
 	var color2 = d3.scaleThreshold() 
-		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
+		.domain([1,2,3,5,10,20,80,150])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 	var color2b = d3.scaleThreshold() 
 		.domain([0,1,3,5,10,20,80,150])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 
-  	var AjaxMap2 = function(name) {
+  	var AjaxMap2 = function(name,comarca,y1,y2,families) {
+        year1 = y1;
+        year2 = y2;
+        family = families;
   		$(function () {
 		    //-----------------------------------------------------------------------
 		    // 2) Send a http request with AJAX http://api.jquery.com/jQuery.ajax/
 		    //-----------------------------------------------------------------------
 		    $.ajax({                                      
 		      url: name+'.php',                  //the script to call to get data          
-		      data: "",                        //you can insert url argumnets here to pass to api.php
-		                                       //for example "id=5&parent=6"
+                data: {'param' : comarca, 'param2': year1, 'param32': year2, 'param4': family},  		                                       //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
 		      success: function(data)          //on recieve of reply
 		      {
@@ -82,7 +87,6 @@ var data2;
 
 		data2.forEach ( function(d) { 
 			//first we create an object with all the values
-			d['CODICOMAR'] = +d['CODICOMAR'],
 			d['COMARCA'] = d['COMARCA'],
 			d['QUANTITAT'] = +d['QUANTITAT'];
 		});
@@ -110,14 +114,13 @@ var data2;
 
 
 		var changemap2 = function(d) {
-		  alert("Hola");
-		  funcajax("test2");
-		  d3.select(".boundary").remove();
+            funcajax("test2",d.id);
+            d3.selectAll(".boundary").remove();
 
-			setTimeout(function(){
-			    funcMap2("bages.json");
-			},500);
-		  
+            setTimeout(function(){
+                funcMap(d.id+".json");
+                Map2(d.id+".json");
+            },500);
 		};
 		
 				
@@ -130,7 +133,9 @@ var data2;
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .on("click",changemap2)
 		   .attr("fill", function(d) {
-				return color2(dataKV2[d.id].QUANTITAT/10);
+		   	console.log("hiii", dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
+		   	console.log("hhhj", dataKV2[d.id].QUANTITAT);
+				return color2(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
 			});
 
       };

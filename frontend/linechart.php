@@ -16,7 +16,7 @@ else {
   //echo("no entra");
 }
 //WHERE MACROFAMILIA IN (".implode(',', $families).") 
-$sql = "SELECT YEAR, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant WHERE YEAR > 2008 AND MACROFAMILIA IN ($families) GROUP BY YEAR, MACROFAMILIA";
+$sql = "SELECT YEAR, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM comarcas_year_food WHERE YEAR > 2008 AND MACROFAMILIA IN ($families) GROUP BY YEAR, MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

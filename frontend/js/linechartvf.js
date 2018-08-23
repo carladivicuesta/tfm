@@ -174,6 +174,13 @@ var linechartDraw = function() {
             d1[1] = parseDate(d1[1]);
           }
           */
+
+          funcajax("test","",d1[0].getFullYear(),d1[1].getFullYear(),family);
+          funcMap("comarques.json");
+
+            AjaxMap2("test","",d1[0].getFullYear(),d1[1].getFullYear(),family);
+            Map2("comarques.json");
+
           waffleAjax("waffle2",d1[0].getFullYear(),d1[1].getFullYear(),family);
 
           setTimeout(function(){

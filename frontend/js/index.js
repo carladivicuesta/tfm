@@ -12,6 +12,12 @@ function totalFunction() {
       var families = ["A","B","C","D","E","F","G","H","I"];
       d3.select("#chart-line svg").remove();
 
+      funcajax("test","",2000,2017,families);
+      funcMap("comarques.json");
+
+      AjaxMap2("test","",2000,2017,families);
+      Map2("comarques.json");
+
       linechartAjax("linechart",families);
       setTimeout(function(){
           linechartDraw();
@@ -45,6 +51,12 @@ function typeFamilyFunction() {
     checkBox.checked = false;
     console.log("fam",families);
     d3.select("#chart-line svg").remove();
+
+    funcajax("test","",2000,2017,families);
+    funcMap("comarques.json");
+
+    AjaxMap2("test","",2000,2017,families);
+    Map2("comarques.json");
 
     linechartAjax("linechart",families);
     setTimeout(function(){

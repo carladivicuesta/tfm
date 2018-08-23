@@ -1,4 +1,7 @@
 var data1;
+var year1 = 2000;
+var year2 = 2017;
+var family = ["A","B","C","D","E","F","G","H","I"];
 	var width  = 500,
     	height = 250,
 	      projection = d3.geoMercator(),
@@ -18,15 +21,17 @@ var data1;
 		.domain([0,1,3,5,10,20,80,150])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
-  	var funcajax = function(name) {
+  	var funcajax = function(name,comarca,y1,y2,families) {
+		year1 = y1;
+		year2 = y2;
+		family = families;
   		$(function () {
 		    //-----------------------------------------------------------------------
 		    // 2) Send a http request with AJAX http://api.jquery.com/jQuery.ajax/
 		    //-----------------------------------------------------------------------
-		    $.ajax({                                      
-		      url: name+'.php',                  //the script to call to get data          
-		      data: "",                        //you can insert url argumnets here to pass to api.php
-		                                       //for example "id=5&parent=6"
+		    $.ajax({
+		      url: name+'.php',                  //the script to call to get data
+				data: {'param' : comarca, 'param2': year1, 'param3': year2, 'param4': family},                                 //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
 		      success: function(data)          //on recieve of reply
 		      {
@@ -79,10 +84,10 @@ var data1;
 		topo.objects['com']
 			.geometries.forEach(function(d) { d.id = d.properties.NOMCOMAR;});
 		// CODICOMAR as id
-
+		console.log("ddd",data1);
 		data1.forEach ( function(d) { 
 			//first we create an object with all the values
-			d['CODICOMAR'] = +d['CODICOMAR'],
+			//d['CODICOMAR'] = +d['CODICOMAR'],
 			d['COMARCA'] = d['COMARCA'],
 			d['QUANTITAT'] = +d['QUANTITAT'];
 		});
@@ -110,12 +115,14 @@ var data1;
 
 
 		var changemap = function(d) {
-		  alert("Hola");
-		  funcajax("test2");
-		  d3.select(".boundary").remove();
+			console.log("id",d);
+		  funcajax("test2",d.id,year1,year2);
+            d3.selectAll(".boundary").remove();
 
 			setTimeout(function(){
-			    funcMap("bages.json");
+				console.log("name",d.id+".json");
+			    funcMap(d.id+".json");
+                Map2(d.id+".json");
 			},500);
 		  
 		};

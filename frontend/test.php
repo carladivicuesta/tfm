@@ -5,10 +5,24 @@ include 'db_connection.php';
 header('Content-type: application/json');
 
 $conn = OpenCon();
-$A = '"A"';
-$B = '"B"';
+$families = "";
+$y1 = 2000;
+$y2 = 2018;
+if( isset($_GET['param4']) ) {
+    //$families = $_GET['param'];
+    $families = implode('", "', $_GET['param4']);
+    $families = '"'.$families.'"';
+}
 
-$sql = "SELECT * FROM vcomarca_quant";
+if( isset($_GET['param2']) ) {
+    $y1 = $_GET['param2']-1;
+}
+
+if( isset($_GET['param3']) ) {
+    $y2 = $_GET['param3']+1;
+}
+
+$sql = "SELECT COMARCA, SUM(QUANTITAT)AS QUANTITAT FROM comarcas_year_food WHERE YEAR > $y1 AND YEAR < $y2  AND MACROFAMILIA IN ($families) GROUP BY COMARCA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data
