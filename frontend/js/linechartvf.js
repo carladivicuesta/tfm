@@ -59,7 +59,7 @@ var linechartDraw = function() {
     var line2 = d3.line()
         .defined(function(d) { return !isNaN(+d.QUANTITAT); })
         .x(function(d) {return x2(d.YEAR); })
-        .y(function(d) {return y2(+d.QUANTITAT); });
+        .y(function(d) {return y2(+d.QUANTITAT/1000000); });
 
     var svgl = d3.select("#chart-line").append("svg")
         .attr("width", widthl + margin.left + margin.right)
@@ -90,7 +90,7 @@ var linechartDraw = function() {
       color.domain(Object.keys(sources));
 
         x.domain(d3.extent(datal1, function(d) { return d.YEAR; }));
-        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT; }); }) ]);
+        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT/1000000; }); }) ]);
         
         x2.domain(x.domain());
         y2.domain(y.domain());

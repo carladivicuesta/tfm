@@ -17,7 +17,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 	var color1 = d3.scaleThreshold() 
 		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
-	var color2 = d3.scaleThreshold() 
+	var color1b = d3.scaleThreshold()
 		.domain([0,1,3,5,10,20,80,150])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
@@ -36,7 +36,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		      success: function(data)          //on recieve of reply
 		      {
 		      	data1 = data;
-		        console.log("Json data",data1);
+
 
 		        } 
 		    });
@@ -67,7 +67,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 				});
 		  }
 		  else {
-		  	console.log("proces",data1);
+		  	console.log("proces",name);
 		  	d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -115,14 +115,15 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 
 		var changemap = function(d) {
-			console.log("id",d);
-		  funcajax("test2",d.id,year1,year2);
+            var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+            funcajax("test2",str,year1,year2);
+            AjaxMap2("test2",str,year1,year2);
             d3.selectAll(".boundary").remove();
 
 			setTimeout(function(){
-				console.log("name",d.id+".json");
-			    funcMap(d.id+".json");
-                Map2(d.id+".json");
+				funcMap(str+".json");
+
+                Map2(str+".json");
 			},500);
 		  
 		};
@@ -187,8 +188,8 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .style("stroke", "#000")
 		   .attr("fill", function(d) {
-		   		if(dataKV[d.id]) return color2(dataKV[+d.id].QUANTITAT/10);
-		   		else return color2(0);
+		   		if(dataKV[d.id]) return color1b(dataKV[+d.id].QUANTITAT/10);
+		   		else return color1b(0);
 			});
 
       };

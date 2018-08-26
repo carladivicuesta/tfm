@@ -1,3 +1,5 @@
+var families= ["A","B","C","D","E","F","G","H","I"];
+
 function totalFunction() {
   // Get the checkbox
   var checkBox = document.getElementById("totalCheck");
@@ -9,7 +11,7 @@ function totalFunction() {
     for (i = 0; i < x.length; i++) {
       x[i].checked = false;
     }
-      var families = ["A","B","C","D","E","F","G","H","I"];
+      families = ["A","B","C","D","E","F","G","H","I"];
       d3.select("#chart-line svg").remove();
 
       funcajax("test","",2000,2017,families);
@@ -40,7 +42,7 @@ function typeFamilyFunction() {
   var checkBox = document.getElementById("totalCheck");
   var i = 0;
   var trobat = false;
-  var families = [];
+  families = [];
   for (i = 0; i < x.length; i++) {
     if (x[i].checked == true){
       trobat = true;
@@ -74,6 +76,41 @@ function typeFamilyFunction() {
   else checkBox.checked = true;
   
 }
+
+$( function() {
+    $( "#slider-range" ).slider({
+
+        orientation: "vertical",
+        range: true,
+        min: 2008,
+        max: 2017,
+        values: [ 2008, 2017 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+
+            funcajax("test","",ui.values[ 0 ],ui.values[ 1 ],families);
+            funcMap("comarques.json");
+
+            AjaxMap2("test","",ui.values[ 0 ],ui.values[ 1 ],families);
+            Map2("comarques.json");
+
+
+            waffleAjax("waffle2",ui.values[ 0 ],ui.values[ 1 ],families);
+
+            setTimeout(function(){
+                waffleDraw();
+            },500);
+
+            waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);
+
+            setTimeout(function(){
+                waffle2Draw();
+            },500);
+        }
+    });
+    $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range" ).slider( "values", 1 ) );
+} );
 
 
 

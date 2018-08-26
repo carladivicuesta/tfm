@@ -7,7 +7,7 @@ header('Content-type: application/json');
 $conn = OpenCon();
 $comarca = "";
 $y1 = 2000;
-$y2 = 2017;
+$y2 = 2018;
 if( isset($_GET['param']) ) {
     $comarca = $_GET['param'];
 }
@@ -21,7 +21,7 @@ if( isset($_GET['param3']) ) {
 }
 
 
-$sql = "SELECT * FROM $comarca WHERE YEAR > $Y1 AND YEAR < $Y2";
+$sql = "SELECT * FROM $comarca WHERE YEAR > $y1 AND YEAR < $y2";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

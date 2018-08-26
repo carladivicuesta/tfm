@@ -18,7 +18,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		.domain([1,2,3,5,10,20,80,150])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 	var color2b = d3.scaleThreshold() 
-		.domain([0,1,3,5,10,20,80,150])
+		.domain([0,0.1,1,1.5,2,5,10,20])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 
   	var AjaxMap2 = function(name,comarca,y1,y2,families) {
@@ -31,12 +31,12 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		    //-----------------------------------------------------------------------
 		    $.ajax({                                      
 		      url: name+'.php',                  //the script to call to get data          
-                data: {'param' : comarca, 'param2': year1, 'param32': year2, 'param4': family},  		                                       //for example "id=5&parent=6"
+                data: {'param' : comarca, 'param2': year1, 'param3': year2, 'param4': family},  		                                       //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
 		      success: function(data)          //on recieve of reply
 		      {
 		      	data2 = data;
-		        console.log("Json data",data1);
+		      	console.log("map2 year:",year1,year2);
 
 		        } 
 		    });
@@ -67,7 +67,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 				});
 		  }
 		  else {
-		  	console.log("proces",data1);
 		  	d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -133,8 +132,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .on("click",changemap2)
 		   .attr("fill", function(d) {
-		   	console.log("hiii", dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
-		   	console.log("hhhj", dataKV2[d.id].QUANTITAT);
 				return color2(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
 			});
 
@@ -185,8 +182,12 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .style("stroke", "#000")
 		   .attr("fill", function(d) {
-		   		if(dataKV2[d.id]) return color2(dataKV2[+d.id].QUANTITAT/10);
-		   		else return color2(0);
+		   		if(dataKV2[d.id]) {
+		   			console.log("hab",dataKV2[+d.id].QUANTITAT,d.properties.HABITANTS);
+                    return color2b(dataKV2[+d.id].QUANTITAT/d.properties.HABITANTS);
+                }
+
+		   		else return color2b(0);
 			});
 
       };

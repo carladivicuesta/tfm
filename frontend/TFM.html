@@ -36,20 +36,7 @@
   <!-- try resize-->
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script>
-  $( function() {
-    console.log("111");
-    $( "#slider-range" ).slider({
 
-      orientation: "vertical",
-      range: true,
-      values: [ 17, 67 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-  } );
   </script>
 </head>
 
@@ -93,14 +80,12 @@
             Anys
           </div>
         
-          <div class="chart-stage">
+          <div class="chart-stage" style="padding-bottom: 15px;">
             <p>
-              <label for="amount">Target sales goal (Millions):</label>
+              <label for="amount">Anys seleccionats:</label>
               <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
-            <script type="text/javascript">console.log("Hola");</script>
             <div id="slider-range" style="height:250px;"></div>
-            <script type="text/javascript">console.log("Hola2");</script>
           </div>
         </div>
     </div>
