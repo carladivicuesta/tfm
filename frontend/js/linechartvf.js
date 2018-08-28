@@ -3,22 +3,30 @@ var datal1;
   var parseDate = d3.timeParse("%Y");
   var total;
   var family = ["A","B","C","D","E","F","G","H","I"];
+  var div = 1000000;
+  var change = false;
+  var comarcaact = "";
 
-  var linechartAjax = function(name,families) {
-    console.log("f1",families);
-    family = families
+  var linechartAjax = function(name,comarca,families) {
+      family = families;
+      console.log("linefam",family);
+    if(!comarca.includes("comarcas")) {
+        div = 1000000;
+        change = true;
+        comarcaact = comarca;
+    }
+    else change = false;
     $(function () {
         $.ajax({                                      
           url: name+'.php',                  //the script to call to get data          
-          data: {'param' : families},
+          data: {'param' : comarca, 'param2' : family},
           //Cambiar a type: POST si necesario
           type: "GET",                      //for example "id=5&parent=6"
           dataType: 'json',                //data format      
           success: function(data)          //on recieve of reply
           {
             datal1 = data;
-            console.log("Json data linechart",datal1);
-
+            console.log("datalinec",datal1);
             } 
         });
     });
@@ -30,9 +38,11 @@ var linechartDraw = function() {
         widthl = 900 - margin.left - margin.right,
         heightl = 500 - margin.top - margin.bottom,
         heightl2 = 500 - margin2.top - margin2.bottom;
-     
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
-     
+
+    var domainw1 = ["A", "B","C", "D", "E", "F","G", "H", "I", "J"];
+    var range = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a","#d62728", "#ff9896", "#9467bd", "#c5b0d5"];
+    var color = d3.scale.ordinal().domain(domainw1).range(range);
+
     var parseDate = d3.timeParse("%Y");
     //var parseDate = d3.timeParse("%Y-%m");
      
@@ -53,15 +63,16 @@ var linechartDraw = function() {
 
     var line = d3.line()
         .defined(function(d) { return !isNaN(+d.QUANTITAT); })
-        .x(function(d) { return x(d.YEAR); })
+        .x(function(d) { return x(d.YEARS); })
         .y(function(d) { return y(+d.QUANTITAT); });
      
     var line2 = d3.line()
         .defined(function(d) { return !isNaN(+d.QUANTITAT); })
-        .x(function(d) {return x2(d.YEAR); })
+        .x(function(d) {return x2(d.YEARS); })
         .y(function(d) {return y2(+d.QUANTITAT/1000000); });
 
     var svgl = d3.select("#chart-line").append("svg")
+        .attr('class', 'chartline')
         .attr("width", widthl + margin.left + margin.right)
         .attr("height", heightl + margin.top + margin.bottom);
      
@@ -71,14 +82,12 @@ var linechartDraw = function() {
         .attr("width", widthl)
         .attr("height", heightl);
      
-   /* var focus = svgl.append("g")
-      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
-          */
+
     var context = svgl.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     datal1.forEach(function(d) {
-      d.YEAR = parseDate(d.YEAR);
+      d.YEARS = parseDate(d.YEARS);
     });
 
 
@@ -86,34 +95,12 @@ var linechartDraw = function() {
       .key(function(d) { return d.MACROFAMILIA; })
       .entries(datal1);
 
-    console.log("sources",sources);
-      color.domain(Object.keys(sources));
-
-        x.domain(d3.extent(datal1, function(d) { return d.YEAR; }));
-        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT/1000000; }); }) ]);
+        x.domain(d3.extent(datal1, function(d) { return d.YEARS; }));
+        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT/div; }); }) ]);
         
         x2.domain(x.domain());
         y2.domain(y.domain());
 
-        /*
-        var focuslineGroups = focus.selectAll("g")
-            .data(sources)
-          .enter().append("g");
-         
-        var focuslines = focuslineGroups.append("path")
-            .attr("class","line")
-            .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) {return color(d.key);})
-            .attr("clip-path", "url(#clip)");
-        
-        focus.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + heightl2 + ")")
-            .call(xAxis);
-     
-        focus.append("g")
-            .attr("class", "y axis")
-            .call(yAxis);*/
             
         var contextlineGroups = context.selectAll("g")
             .data(sources)
@@ -156,43 +143,37 @@ var linechartDraw = function() {
             d1[1] = d3.timeYear.offset(d1[0]);
           }
           d3.select(this).call(d3.event.target.move, d1.map(x2));
+          var year1 = d1[0].getFullYear();
+          var year2 = d1[1].getFullYear()
 
-          //d3.select(this).call(d3.event.target.move, d1.map(x2));
-          //var s = d3.event.selection || x2.range();
-          //x.domain(s.map(x2.invert, x2));
-          //focus.selectAll("path.line").attr("d",  function(d) {return line(d.values)});
-          //focus.select(".x.axis").call(xAxis);
-          //focus.select(".y.axis").call(yAxis);
-          /*
-              // If empty when rounded, use floor instead.
-          if (d1[0] >= d1[1]) {
-            d1[0] = parseDate(d0[0]);
-            d1[1] = parseDate(d1[0]);
-          }
-          else {
-            d1[0] = parseDate(d1[0]);
-            d1[1] = parseDate(d1[1]);
-          }
-          */
+            if(change) {
+                funcajax("test2",comarcaact,year1,year2,family);
+                funcMap(comarcaact+".json");
 
-          funcajax("test","",d1[0].getFullYear(),d1[1].getFullYear(),family);
-          funcMap("comarques.json");
+                AjaxMap2("test2",comarcaact,year1,year2,family);
+                Map2(comarcaact+".json");
+            }
+            else {
+                funcajax("test","",year1,year2,family);
+                funcMap("comarques.json");
 
-            AjaxMap2("test","",d1[0].getFullYear(),d1[1].getFullYear(),family);
-            Map2("comarques.json");
+                AjaxMap2("test","",year1,year2,family);
+                Map2("comarques.json");
+            }
 
-          waffleAjax("waffle2",d1[0].getFullYear(),d1[1].getFullYear(),family);
+            waffleAjax("waffle2",comarcaact,year1,year2,family);
 
-          setTimeout(function(){
-              waffleDraw();
-          },500);
+            setTimeout(function(){
+                waffleDraw();
+            },500);
 
-          waffle2Ajax("wafflePersones",d1[0].getFullYear(),d1[1].getFullYear());
+            waffle2Ajax("wafflePersones",year1,year2);
 
-          setTimeout(function(){
-              waffle2Draw();
-          },500);
+            setTimeout(function(){
+                waffle2Draw();
+            },500);
         }
+
 
 
 
@@ -202,7 +183,7 @@ var linechartDraw = function() {
  
 
 
-linechartAjax("linechart",family);
+linechartAjax("linechart","comarcas_year_food",family);
 
 
 setTimeout(function(){

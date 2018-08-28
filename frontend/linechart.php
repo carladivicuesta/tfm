@@ -7,16 +7,22 @@ header('Content-type: application/json');
 $conn = OpenCon();
 
 $families = '';
+
+$comarca = "";
+
 if( isset($_GET['param']) ) {
+    $comarca = $_GET['param'];
+}
+
+if( isset($_GET['param2']) ) {
         //$families = $_GET['param'];
-        $families = implode('", "', $_GET['param']);
+        $families = implode('", "', $_GET['param2']);
         $families = '"'.$families.'"';
 } 
 else {
   //echo("no entra");
 }
-//WHERE MACROFAMILIA IN (".implode(',', $families).") 
-$sql = "SELECT YEAR, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM comarcas_year_food WHERE YEAR > 2008 AND MACROFAMILIA IN ($families) GROUP BY YEAR, MACROFAMILIA";
+$sql = "SELECT YEARS, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM $comarca WHERE YEARS > 2008 AND MACROFAMILIA IN ($families) GROUP BY YEARS, MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

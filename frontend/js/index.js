@@ -1,4 +1,8 @@
-var families= ["A","B","C","D","E","F","G","H","I"];
+var families = ["A","B","C","D","E","F","G","H","I"];
+var year1 = 2007;
+var year2 = 2017;
+var comarcaact = "comarcas_year_food";
+var comarca = false;
 
 function totalFunction() {
   // Get the checkbox
@@ -14,18 +18,27 @@ function totalFunction() {
       families = ["A","B","C","D","E","F","G","H","I"];
       d3.select("#chart-line svg").remove();
 
-      funcajax("test","",2000,2017,families);
-      funcMap("comarques.json");
+      if(comarca) {
+          funcajax("test2",comarcaact,2000,2017,families);
+          funcMap(comarcaact+".json");
 
-      AjaxMap2("test","",2000,2017,families);
-      Map2("comarques.json");
+          AjaxMap2("test2",comarcaact,2000,2017,families);
+          Map2(comarcaact+".json");
+      }
+      else {
+          funcajax("test","",2000,2017,families);
+          funcMap("comarques.json");
 
-      linechartAjax("linechart",families);
+          AjaxMap2("test","",2000,2017,families);
+          Map2("comarques.json");
+      }
+
+      linechartAjax("linechart",comarcaact,families);
       setTimeout(function(){
           linechartDraw();
       },500);
 
-      waffleAjax("waffle2",2000,2017,families);
+      waffleAjax("waffle2",comarcaact,2000,2017,families);
 
       setTimeout(function(){
           waffleDraw();
@@ -51,21 +64,31 @@ function typeFamilyFunction() {
   }
   if (trobat) {
     checkBox.checked = false;
-    console.log("fam",families);
     d3.select("#chart-line svg").remove();
 
-    funcajax("test","",2000,2017,families);
-    funcMap("comarques.json");
+      if(comarca) {
+          funcajax("test2",comarcaact,2000,2017,families);
+          funcMap(comarcaact+".json");
 
-    AjaxMap2("test","",2000,2017,families);
-    Map2("comarques.json");
+          AjaxMap2("test2",comarcaact,2000,2017,families);
+          Map2(comarcaact+".json");
+      }
+      else {
+          funcajax("test","",2000,2017,families);
+          funcMap("comarques.json");
 
-    linechartAjax("linechart",families);
+          AjaxMap2("test","",2000,2017,families);
+          Map2("comarques.json");
+      }
+
+
+
+    linechartAjax("linechart",comarcaact,families);
     setTimeout(function(){
         linechartDraw();
     },500);
 
-    waffleAjax("waffle2",2000,2017,families);
+    waffleAjax("waffle2",comarcaact,2000,2017,families);
     
     setTimeout(function(){
         waffleDraw();
@@ -87,15 +110,25 @@ $( function() {
         values: [ 2008, 2017 ],
         slide: function( event, ui ) {
             $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            year1 = ui.values[ 0 ];
+            year2 = ui.values[ 1 ];
 
-            funcajax("test","",ui.values[ 0 ],ui.values[ 1 ],families);
-            funcMap("comarques.json");
+            if(comarca) {
+                funcajax("test2",comarcaact,year1,year2,families);
+                funcMap(comarcaact+".json");
 
-            AjaxMap2("test","",ui.values[ 0 ],ui.values[ 1 ],families);
-            Map2("comarques.json");
+                AjaxMap2("test2",comarcaact,year1,year2,families);
+                Map2(comarcaact+".json");
+            }
+            else {
+                funcajax("test","",year1,year2,families);
+                funcMap("comarques.json");
 
+                AjaxMap2("test","",year1,year2,families);
+                Map2("comarques.json");
+            }
 
-            waffleAjax("waffle2",ui.values[ 0 ],ui.values[ 1 ],families);
+            waffleAjax("waffle2",comarcaact,year1,year2,families);
 
             setTimeout(function(){
                 waffleDraw();
@@ -111,6 +144,49 @@ $( function() {
     $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) +
         " - " + $( "#slider-range" ).slider( "values", 1 ) );
 } );
+
+function addBreadcrumb(com) {
+    $(function(){
+        $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
+            '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
+            '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+com+'</li>';
+    });
+
+    comarca = true;
+    comarcaact = com.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+}
+
+function removeBreadcrumb() {
+    comarca = false;
+
+    $(function(){
+        $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
+            '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
+            '      <li>Comarques</li>';
+    });
+
+    returnMap(year1,year2,families);
+
+    d3.selectAll(".chartline").remove();
+    linechartAjax("linechart","comarcas_year_food",families);
+
+
+    setTimeout(function(){
+        linechartDraw();
+    },500);
+
+    waffleAjax("waffle2","comarcas_year_food",year1,year2,families);
+
+    setTimeout(function(){
+        waffleDraw();
+    },500);
+
+    waffle2Ajax("wafflePersones",year1,year2);
+
+    setTimeout(function(){
+        waffle2Draw();
+    },500);
+}
 
 
 

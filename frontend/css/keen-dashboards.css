@@ -1,6 +1,7 @@
 .keen-dashboard {
   background: #f2f2f2;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-image: url("../images/background_home.png");
 }
 
 .keen-dataviz {
@@ -101,7 +102,9 @@
 }
 
 .navbar-inverse{
-  background-color: #08519c;
+  background-image: url(../images/background_home.png);
+  /* background-size: 80%; */
+  background-position: top;
 }
 
 .prin-title {
@@ -110,7 +113,10 @@
   font-weight: 200;
   padding: 7px 10px 4px;
   text-align: center;
-  background-color: #08519c;
+  background-image: url(../images/background_home_header.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  height: 111px;
 }
 
 .subtitle{
@@ -118,6 +124,11 @@
   font-size: 20px;
   font-weight: 200;
   text-align: center;
+}
+
+.container-fluid2 {
+  background: #f2f2f2;
+  padding-top: 80px;
 }
 
 #container {
@@ -136,3 +147,48 @@
     margin-right: 0; 
     margin-left: 0; 
   }
+
+.pico {
+  margin-top: -195px;
+  margin-left: -110px;
+}
+
+#chartwf-1 {
+  margin-left: 101px;
+}
+
+.legend.persones {
+  display: none;
+}
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 13px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 2px;
+  color: black;
+  content: ">\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}

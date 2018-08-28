@@ -134,7 +134,7 @@ function d3waffle() {
             .attr('x', 1.5*gridSize + magic_padding)
             .attr('y', function(d, i){ return i * gridSize + i * magic_padding / 2;})
             .style("opacity", 1)
-            .html(function(d){ return d.name; })
+            .html(function(d){ return changelegend(d.name); })
             .attr('class', function(d){ return "waffle-legend-text" + " " + d.class; })
 
       function mouseover(d){
@@ -213,6 +213,19 @@ chart.adjust = function(_) {
 
 }
 
+function changelegend(text) {
+  if (text == "A") return "Làctics i derivats";
+  else if (text == "B") return "Farines i derivats";
+  else if (text == "C") return "Arròs, pasta, sucre i llegums";
+  else if (text == "D") return "Conserves i plats preparats";
+  else if (text == "E") return "Olis i greixos";
+  else if (text == "F") return "Carn, peix i embotits";
+  else if (text == "G") return "Begudes i infusions";
+  else if (text == "H") return "Fruites i verdures fresques";
+  else if (text == "I") return "Congelats";
+  else if (text == "Persones") return "100 persones";
+  else return text;
+}
 function slugify(text){
   return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -

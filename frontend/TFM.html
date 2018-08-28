@@ -40,20 +40,32 @@
   </script>
 </head>
 
-<body class="keen-dashboard" style="padding-top: 80px;">
+<body class="keen-dashboard" style="padding-top: 111px;">
 
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-      <div class="prin-title">Estadístiques de Kgs repartits a entitats</div>
 
+      <div class="prin-title">
+        <img src="images/logo.png" style="padding-top: 21px; margin-left: -720px;">
+
+</div>
+      <img src="images/menu.png" style="padding-left: 300px; width: 80%">
       <div class="navbar-collapse collapse">
       </div>
 
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid container-fluid2">
+
     <div class="subtitle"> @lloc, @anys i @filtres</div>
+
+    <ul class="breadcrumb" id="breadcrumb">
+      <li><a href="#">Inici</a></li>
+      <li><a href="#">El Banc dels Aliments</a></li>
+      <li>Comarques</li>
+    </ul>
+
     <div class="row">
     <div class="col-md-2">
       <div class="chart-wrapper">
@@ -68,10 +80,10 @@
             <input type="checkbox" class="typeFamily" name="familia" value="B" onclick="typeFamilyFunction()"> Farines i derivats<br>
             <input type="checkbox" class="typeFamily" name="familia" value="C" onclick="typeFamilyFunction()"> Arròs, pasta, sucre i llegums<br>
             <input type="checkbox" class="typeFamily" name="familia" value="D" onclick="typeFamilyFunction()"> Conserves i plats preparats<br>
-            <input type="checkbox" class="typeFamily" name="familia" value="E" onclick="typeFamilyFunction()"> Fruites i verdures fresques<br>
-            <input type="checkbox" class="typeFamily" name="familia" value="F" onclick="typeFamilyFunction()"> Olis i greixos<br>
-            <input type="checkbox" class="typeFamily" name="familia" value="G" onclick="typeFamilyFunction()"> Carn,peix,embotits<br>
-            <input type="checkbox" class="typeFamily" name="familia" value="H" onclick="typeFamilyFunction()"> Begudes i infusions<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="E" onclick="typeFamilyFunction()"> Olis i greixos<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="F" onclick="typeFamilyFunction()"> Carn, peix i embotits<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="G" onclick="typeFamilyFunction()"> Begudes i infusions<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="H" onclick="typeFamilyFunction()"> Fruites i verdures fresques<br>
             <input type="checkbox" class="typeFamily" name="familia" value="I" onclick="typeFamilyFunction()"> Congelats
             </form>
           </div>
@@ -139,6 +151,9 @@
             <script src='js/waffle.js'></script>
             <script src='js/wafflevf.js'></script>
             <div class="container" id="chartwf-1" style="padding-left: 0px"></div>
+            <div style="margin-left: 150px;"><p>
+              <input type="text" id="numkilos" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
             <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
           </div>
         </div>
@@ -152,6 +167,9 @@
             <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
             <div id="chartwf-2"></div>
             <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <div style="margin-left: 150px;"><p>
+              <input type="text" id="numpers" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
           </div>
         </div>
         </div>

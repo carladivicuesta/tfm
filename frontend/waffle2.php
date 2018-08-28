@@ -8,21 +8,26 @@ $conn = OpenCon();
 $Y1 = 2000;
 $Y2 = 2017;
 $jsondata = array();
+$comarca = "";
+
 if( isset($_GET['param']) ) {
-        $Y1 = $_GET['param']-1;
-} 
+    $comarca = $_GET['param'];
+}
 if( isset($_GET['param2']) ) {
-        $Y2 = $_GET['param2']+1;
+        $Y1 = $_GET['param2']-1;
+} 
+if( isset($_GET['param3']) ) {
+        $Y2 = $_GET['param3']+1;
 } 
 
 $families = '';
-if( isset($_GET['param3']) ) {
-        $families = implode('", "', $_GET['param3']);
+if( isset($_GET['param4']) ) {
+        $families = implode('", "', $_GET['param4']);
         $families = '"'.$families.'"';
 } 
 
 
-$sql = "SELECT MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM vbages_quant WHERE YEAR > $Y1 AND YEAR < $Y2 AND MACROFAMILIA IN ($families) GROUP BY MACROFAMILIA";
+$sql = "SELECT MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM $comarca WHERE YEARS > $Y1 AND YEARS < $Y2 AND MACROFAMILIA IN ($families) GROUP BY MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

@@ -19,9 +19,15 @@ if( isset($_GET['param2']) ) {
 if( isset($_GET['param3']) ) {
     $y2 = $_GET['param3']+1;
 }
+$families = "";
 
+if( isset($_GET['param4']) ) {
+    //$families = $_GET['param'];
+    $families = implode('", "', $_GET['param4']);
+    $families = '"'.$families.'"';
+}
 
-$sql = "SELECT * FROM $comarca WHERE YEAR > $y1 AND YEAR < $y2";
+$sql = "SELECT * FROM $comarca WHERE YEARS > $y1 AND YEARS < $y2 AND MACROFAMILIA IN ($families)";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

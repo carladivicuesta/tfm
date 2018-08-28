@@ -25,6 +25,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		year1 = y1;
 		year2 = y2;
 		family = families;
+		console.log("map1",comarca);
   		$(function () {
 		    //-----------------------------------------------------------------------
 		    // 2) Send a http request with AJAX http://api.jquery.com/jQuery.ajax/
@@ -36,7 +37,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		      success: function(data)          //on recieve of reply
 		      {
 		      	data1 = data;
-
+                  console.log("map1 data",data1);
 
 		        } 
 		    });
@@ -50,16 +51,18 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 			.attr("class", "legendQuant")
 			.attr("transform", "translate(30,30)");
 
-		  var legend = d3.legendColor()
-			.labelFormat(d3.format(".0f")) //0 decimals
-			.labels(d3.legendHelpers.thresholdLabels)
-			.scale(color1) //reference to our Threshold scale
-			
-		  svg.select(".legendQuant")
-		    .call(legend);
 		  /* end of legend */	
 		  if (name.includes("comarques")) {
-		  	  d3.queue()
+              var legend = d3.legendColor()
+                  .labelFormat(d3.format(".0f")) //0 decimals
+                  .labels(d3.legendHelpers.thresholdLabels)
+                  .scale(color1) //reference to our Threshold scale
+
+              svg.select(".legendQuant")
+                  .call(legend);
+              /* end of legend */
+
+              d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
 					process(topo,data)			//topo for topographic info, data for metadata
@@ -67,8 +70,15 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 				});
 		  }
 		  else {
-		  	console.log("proces",name);
-		  	d3.queue()
+              var legend = d3.legendColor()
+                  .labelFormat(d3.format(".0f")) //0 decimals
+                  .labels(d3.legendHelpers.thresholdLabels)
+                  .scale(color1b) //reference to our Threshold scale
+
+              svg.select(".legendQuant")
+                  .call(legend);
+              /* end of legend */
+              d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
 					processMun(topo,data);
@@ -116,15 +126,35 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 		var changemap = function(d) {
             var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
-            funcajax("test2",str,year1,year2);
-            AjaxMap2("test2",str,year1,year2);
-            d3.selectAll(".boundary").remove();
 
+            funcajax("test2",str,year1,year2,families);
+            AjaxMap2("test2",str,year1,year2,families);
+            addBreadcrumb(d.id);
+            d3.selectAll(".boundary").remove();
+            d3.selectAll(".chartline").remove();
 			setTimeout(function(){
 				funcMap(str+".json");
 
                 Map2(str+".json");
 			},500);
+
+            linechartAjax("linechart",str,families);
+
+            setTimeout(function(){
+                linechartDraw();
+            },500);
+
+            waffleAjax("waffle2",str,year1,year2,families);
+
+            setTimeout(function(){
+                waffleDraw();
+            },500);
+
+            waffle2Ajax("wafflePersones",year1,year2);
+
+            setTimeout(function(){
+                waffle2Draw();
+            },500);
 		  
 		};
 		
@@ -193,6 +223,21 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 			});
 
       };
+
+     function returnMap(y1,y2,fam) {
+        funcajax("test","",y1,y2,fam);
+        AjaxMap2("test","",y1,y2,fam);
+        d3.selectAll(".boundary").remove();
+
+        setTimeout(function(){
+            funcMap("comarques.json");
+
+            Map2("comarques.json");
+        },500);
+
+
+
+     };
 
 
    funcajax("test");
