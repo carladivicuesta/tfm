@@ -139,10 +139,17 @@ $( function() {
             setTimeout(function(){
                 waffle2Draw();
             },500);
+            $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
         }
+
+
     });
     $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) +
         " - " + $( "#slider-range" ).slider( "values", 1 ) );
+
+
+
+
 } );
 
 function addBreadcrumb(com) {
@@ -150,6 +157,8 @@ function addBreadcrumb(com) {
         $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
             '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+com+'</li>';
+
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys 2008 fins 2017';
     });
 
     comarca = true;
@@ -163,6 +172,8 @@ function removeBreadcrumb() {
         $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
             '      <li>Comarques</li>';
+
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys 2008 fins 2017';
     });
 
     returnMap(year1,year2,families);

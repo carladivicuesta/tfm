@@ -150,7 +150,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
                 waffleDraw();
             },500);
 
-            waffle2Ajax("wafflePersones",year1,year2);
+            waffle2Ajax("wafflePersones",year1,year2,d.id);
 
             setTimeout(function(){
                 waffle2Draw();

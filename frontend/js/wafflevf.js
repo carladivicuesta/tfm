@@ -81,17 +81,19 @@
 
   };
 
-var waffle2Ajax = function(name,year1,year2) {
+var waffle2Ajax = function(name,year1,year2,comarca) {
+    console.log("wafflpers1",comarca);
     $(function () {
         $.ajax({      
           url: name+'.php',                  //the script to call to get data          
-          data: {'param' : year1, 'param2': year2, 'param3': family},
+          data: {'param' : year1, 'param2': year2, 'param3': comarca},
           //Cambiar a type: POST si necesario
           type: "GET",
           // Formato de datos que se espera en la respuesta
           dataType: 'json',                //data format                                      
           success: function(data)          //on recieve of reply
           {
+              console.log("Waffpers",data);
             dataw2 = data;
 
             } 
@@ -106,7 +108,8 @@ var waffle2Ajax = function(name,year1,year2) {
           //var domain = ["Total", "Làctics i derivats", "Farines i derivats","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     var domain = ["Total", "A", "B","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     
-    var total1 = 354645982;
+    var total1 = 555859393;
+
 
     var totalp = 0;
     var domain = dataw2.map(function(el) {
@@ -122,8 +125,8 @@ var waffle2Ajax = function(name,year1,year2) {
           //var palette = d3.scale.ordinal().domain(domain).range(range);
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
-                    .rows(4)
-                    .scale(1/4)
+                    .rows(3)
+                    .scale(1/3)
                     .icon("&#xf183;")
                     .adjust(0.375)
                     .colorscale(d3.scale.category10())
