@@ -8,7 +8,11 @@ function d3waffle() {
       appearancetimes = function(d, i){ return 500; },
       height = 200,
       magic_padding = 5;
-     
+
+    var domainwf1 = ["A", "B","C", "D", "H","G","F","E","Persones"];
+    var rangef = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a","#d62728", "#ff9896", "#1f77b4"]//"#9467bd", "#c5b0d5"];
+    var colorwf = d3.scale.ordinal().domain(domainwf1).range(rangef);
+
   function chart(selection) {
     
     selection.each(function(data) {
@@ -84,7 +88,7 @@ function d3waffle() {
             .attr('font-family', 'FontAwesome')
             .attr("transform", function(d) { return "translate(" + gridSize/2 + "," + 5/6*gridSize  + ")"; })
             .style("text-anchor", "middle")
-            .style('fill', function(d){ return colorscale(d.class); })
+            .style('fill', function(d){ return colorwf(d.name); })
             .style("font-size", function(d) {
               val = 9;
               val2 = 2.5;
@@ -113,7 +117,7 @@ function d3waffle() {
           .data(data)
           .enter().append('g')
           .attr('class', function(d){ return "legend" + " " + d.class; })
-          .attr("transform", function(d) { return "translate(" + (cols*gridSize + magic_padding) + "," + magic_padding + ")"; })
+          .attr("transform", function(d) { return "translate(" + (13*gridSize + magic_padding) + "," + magic_padding + ")"; })
         
       legend.append('text')
             .attr('x', gridSize)
@@ -122,7 +126,7 @@ function d3waffle() {
             .html(function(d){ return icon; })
             .attr('class', function(d){ return d.class; })
             .attr('font-family', 'FontAwesome')
-            .style('fill', function(d){ return colorscale(d.class); })
+            .style('fill', function(d){ return colorwf(d.name); })
             /*.style("font-size", function(d) {
               val = 9;
               val2 = 2.5;
@@ -222,7 +226,6 @@ function changelegend(text) {
   else if (text == "F") return "Carn, peix i embotits";
   else if (text == "G") return "Begudes i infusions";
   else if (text == "H") return "Fruites i verdures fresques";
-  else if (text == "I") return "Congelats";
   else if (text == "Persones") return "100 persones";
   else return text;
 }

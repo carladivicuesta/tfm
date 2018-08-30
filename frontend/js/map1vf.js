@@ -3,7 +3,7 @@ var year1 = 2000;
 var year2 = 2017;
 var family = ["A","B","C","D","E","F","G","H","I"];
 	var width  = 500,
-    	height = 250,
+    	height = 290,
 	      projection = d3.geoMercator(),
 	      catalonia = void 0;
 	var path = d3.geoPath().projection(projection);
@@ -14,7 +14,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 	          .attr("height", height);
 
 	/* The scale */	  
-	var color1 = d3.scaleThreshold() 
+	var color1 = d3.scaleThreshold()
 		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 	var color1b = d3.scaleThreshold()
@@ -25,7 +25,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		year1 = y1;
 		year2 = y2;
 		family = families;
-		console.log("map1",comarca);
   		$(function () {
 		    //-----------------------------------------------------------------------
 		    // 2) Send a http request with AJAX http://api.jquery.com/jQuery.ajax/
@@ -37,7 +36,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		      success: function(data)          //on recieve of reply
 		      {
 		      	data1 = data;
-                  console.log("map1 data",data1);
 
 		        } 
 		    });
@@ -49,7 +47,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		  /* The legend */
 		  svg.append("g")
 			.attr("class", "legendQuant")
-			.attr("transform", "translate(30,30)");
+			.attr("transform", "translate(400,100)");
 
 		  /* end of legend */	
 		  if (name.includes("comarques")) {
@@ -94,8 +92,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		topo.objects['com']
 			.geometries.forEach(function(d) { d.id = d.properties.NOMCOMAR;});
 		// CODICOMAR as id
-		console.log("ddd",data1);
-		data1.forEach ( function(d) { 
+		data1.forEach ( function(d) {
 			//first we create an object with all the values
 			//d['CODICOMAR'] = +d['CODICOMAR'],
 			d['COMARCA'] = d['COMARCA'],
@@ -105,6 +102,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 			res[el.COMARCA] = el; 
 			return res; },{});
 		// then we create a dictionary, with CODICOMAR as key
+
 	    var comarques = topojson.feature(topo, topo.objects.com); 
 		
         // Setup the scale and translate
@@ -119,7 +117,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection.scale(s).translate(t); //reset scale and translation
 
-        var map = svg.append('g').attr('class', 'boundary');
+        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
         catalonia = map.selectAll(".comarca") 
 					.data(comarques.features);
 
@@ -205,7 +203,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection.scale(s).translate(t); //reset scale and translation
 
-        var map = svg.append('g').attr('class', 'boundary');
+        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
         catalonia = map.selectAll(".comarca") 
 					.data(comarques.features);
 

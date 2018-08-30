@@ -125,7 +125,7 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
           //var palette = d3.scale.ordinal().domain(domain).range(range);
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
-                    .rows(3)
+                    .rows(5)
                     .scale(1/3)
                     .icon("&#xf183;")
                     .adjust(0.375)
@@ -135,7 +135,7 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
                       val = i % mod;
                       return val / mod * 150;
                     })
-                    .height(170);
+                    .height(250);
     d3.select("#chartwf-2")
       .datum(domain)
       .call(chart4);

@@ -3,7 +3,6 @@ var datal1;
   var parseDate = d3.timeParse("%Y");
   var total;
   var family = ["A","B","C","D","E","F","G","H","I"];
-  var div = 1000000;
   var change = false;
   var comarcaact = "";
 
@@ -11,7 +10,6 @@ var datal1;
       family = families;
       console.log("linefam",family);
     if(!comarca.includes("comarcas")) {
-        div = 1000000;
         change = true;
         comarcaact = comarca;
     }
@@ -33,13 +31,13 @@ var datal1;
   };
 
 var linechartDraw = function() {
-    var margin = {top: 10, right: 10, bottom: 20, left: 40},
+    var margin = {top: 10, right: 10, bottom: 20, left: 80},
         margin2 = {top: 430, right: 10, bottom: 20, left: 40},
         widthl = 900 - margin.left - margin.right,
         heightl = 500 - margin.top - margin.bottom,
         heightl2 = 500 - margin2.top - margin2.bottom;
 
-    var domainw1 = ["A", "B","C", "D", "E", "F","G", "H", "I", "J"];
+    var domainw1 = ["A", "B","C", "D", "H","G","F","E"];
     var range = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a","#d62728", "#ff9896", "#9467bd", "#c5b0d5"];
     var color = d3.scale.ordinal().domain(domainw1).range(range);
 
@@ -69,7 +67,7 @@ var linechartDraw = function() {
     var line2 = d3.line()
         .defined(function(d) { return !isNaN(+d.QUANTITAT); })
         .x(function(d) {return x2(d.YEARS); })
-        .y(function(d) {return y2(+d.QUANTITAT/1000000); });
+        .y(function(d) {return y2(+d.QUANTITAT); });
 
     var svgl = d3.select("#chart-line").append("svg")
         .attr('class', 'chartline')
@@ -96,7 +94,7 @@ var linechartDraw = function() {
       .entries(datal1);
 
         x.domain(d3.extent(datal1, function(d) { return d.YEARS; }));
-        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT/div; }); }) ]);
+        y.domain([0, d3.max(sources, function(c) { return d3.max(c.values, function(v) { return +v.QUANTITAT; }); }) ]);
         
         x2.domain(x.domain());
         y2.domain(y.domain());
@@ -108,7 +106,7 @@ var linechartDraw = function() {
         
         var contextLines = contextlineGroups.append("path")
             .attr("class", "line")
-            .attr("d", function(d) { return line2(d.values); })
+            .attr("d", function(d) { console.log(d); return line2(d.values); })
             .style("stroke", function(d) {return color(d.key);})
             .style("stroke-width", "1.5px")
             .attr("clip-path", "url(#clip)");

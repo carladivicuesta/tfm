@@ -1,8 +1,9 @@
 var families = ["A","B","C","D","E","F","G","H","I"];
 var year1 = 2007;
 var year2 = 2017;
-var comarcaact = "comarcas_year_food";
+var comarcaact2 = "comarcas_year_food";
 var comarca = false;
+console.log('holaa init');
 
 function totalFunction() {
   // Get the checkbox
@@ -19,11 +20,11 @@ function totalFunction() {
       d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact,2000,2017,families);
-          funcMap(comarcaact+".json");
+          funcajax("test2",comarcaact2,2000,2017,families);
+          funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact,2000,2017,families);
-          Map2(comarcaact+".json");
+          AjaxMap2("test2",comarcaact2,2000,2017,families);
+          Map2(comarcaact2+".json");
       }
       else {
           funcajax("test","",2000,2017,families);
@@ -32,13 +33,12 @@ function totalFunction() {
           AjaxMap2("test","",2000,2017,families);
           Map2("comarques.json");
       }
-
-      linechartAjax("linechart",comarcaact,families);
+      linechartAjax("linechart",comarcaact2,families);
       setTimeout(function(){
           linechartDraw();
       },500);
 
-      waffleAjax("waffle2",comarcaact,2000,2017,families);
+      waffleAjax("waffle2",comarcaact2,2000,2017,families);
 
       setTimeout(function(){
           waffleDraw();
@@ -67,11 +67,11 @@ function typeFamilyFunction() {
     d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact,2000,2017,families);
-          funcMap(comarcaact+".json");
+          funcajax("test2",comarcaact2,2000,2017,families);
+          funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact,2000,2017,families);
-          Map2(comarcaact+".json");
+          AjaxMap2("test2",comarcaact2,2000,2017,families);
+          Map2(comarcaact2+".json");
       }
       else {
           funcajax("test","",2000,2017,families);
@@ -82,13 +82,14 @@ function typeFamilyFunction() {
       }
 
 
-
-    linechartAjax("linechart",comarcaact,families);
+      console.log("comview", comarcaact2);
+      console.log("comview2", typeof comarcaact2);
+    linechartAjax("linechart",comarcaact2,families);
     setTimeout(function(){
         linechartDraw();
     },500);
 
-    waffleAjax("waffle2",comarcaact,2000,2017,families);
+    waffleAjax("waffle2",comarcaact2,2000,2017,families);
     
     setTimeout(function(){
         waffleDraw();
@@ -114,11 +115,11 @@ $( function() {
             year2 = ui.values[ 1 ];
 
             if(comarca) {
-                funcajax("test2",comarcaact,year1,year2,families);
-                funcMap(comarcaact+".json");
+                funcajax("test2",comarcaact2,year1,year2,families);
+                funcMap(comarcaact2+".json");
 
-                AjaxMap2("test2",comarcaact,year1,year2,families);
-                Map2(comarcaact+".json");
+                AjaxMap2("test2",comarcaact2,year1,year2,families);
+                Map2(comarcaact2+".json");
             }
             else {
                 funcajax("test","",year1,year2,families);
@@ -128,7 +129,7 @@ $( function() {
                 Map2("comarques.json");
             }
 
-            waffleAjax("waffle2",comarcaact,year1,year2,families);
+            waffleAjax("waffle2",comarcaact2,year1,year2,families);
 
             setTimeout(function(){
                 waffleDraw();
@@ -162,7 +163,8 @@ function addBreadcrumb(com) {
     });
 
     comarca = true;
-    comarcaact = com.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+    console.log("Assignem var",com);
+    comarcaact2 = com.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
 }
 
 function removeBreadcrumb() {

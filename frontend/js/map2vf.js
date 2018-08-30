@@ -3,7 +3,7 @@ var year1 = 2000;
 var year2 = 2017;
 var family = ["A","B","C","D","E","F","G","H","I"];
 	var width2  = 500,
-    	height2 = 250,
+    	height2 = 290,
 	      projection2 = d3.geoMercator(),
 	      catalonia2 = void 0;
 	var path2 = d3.geoPath().projection(projection);
@@ -48,7 +48,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		  /* The legend */
 		  svg2.append("g")
 			.attr("class", "legendQuant")
-			.attr("transform", "translate(30,30)");
+			.attr("transform", "translate(400,100)");
 
 		  var legend2 = d3.legendColor()
 			.labelFormat(d3.format(".0f")) //0 decimals
@@ -107,7 +107,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection2.scale(s).translate(t); //reset scale and translation
 
-        var map2 = svg2.append('g').attr('class', 'boundary');
+        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
         catalonia2 = map2.selectAll(".comarca") 
 					.data(comarques.features);
 
@@ -169,7 +169,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection2.scale(s).translate(t); //reset scale and translation
 
-        var map2 = svg2.append('g').attr('class', 'boundary');
+        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
         catalonia2 = map2.selectAll(".comarca") 
 					.data(comarques.features);
 
