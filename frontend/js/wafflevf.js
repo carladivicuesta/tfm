@@ -70,12 +70,9 @@
                     .height(170);
     d3.select("#chartwf-1")
       .datum(domain)
-      .call(chart4)
-        .append('img')
-        .attr('src','images/carrito.svg')
-        .attr('class', 'pico')
-        .attr('height', '300')
-        .attr('width', '300');
+      .call(chart4);
+
+
 
     $( "#numkilos" ).val((Math.round(total * 100) / 100).toLocaleString() + " Kg");
 

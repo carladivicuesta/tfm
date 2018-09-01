@@ -144,7 +144,7 @@ function d3waffle() {
       function mouseover(d){
         tooltip.transition().duration(100).style("opacity", .9);
         el = data.filter(function(e){ return e.name == d.name})[0]
-        txt = "<b>" +el.name + "</b><br>" + d3.format(',')(el.value) + "<br>(" + d3.format(".0%")(el.percent) + ")"
+        txt = "<b>" + changelegend(el.name) + "</b><br>" + "(" + d3.format(".0%")(el.percent) + ")"
         tooltip.html(txt);
 
         d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 0.2);

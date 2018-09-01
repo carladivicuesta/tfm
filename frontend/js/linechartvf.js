@@ -31,9 +31,9 @@ var datal1;
   };
 
 var linechartDraw = function() {
-    var margin = {top: 10, right: 10, bottom: 20, left: 80},
-        margin2 = {top: 430, right: 10, bottom: 20, left: 40},
-        widthl = 900 - margin.left - margin.right,
+    var margin = {top: 10, right: 20, bottom: 20, left: 80},
+        margin2 = {top: 430, right: 20, bottom: 20, left: 40},
+        widthl = 1100 - margin.left - margin.right,
         heightl = 500 - margin.top - margin.bottom,
         heightl2 = 500 - margin2.top - margin2.bottom;
 
@@ -42,6 +42,7 @@ var linechartDraw = function() {
     var color = d3.scale.ordinal().domain(domainw1).range(range);
 
     var parseDate = d3.timeParse("%Y");
+    var bisectDate = d3.bisector(function(d) { return d.year; }).left;
     //var parseDate = d3.timeParse("%Y-%m");
      
     var x = d3.scaleTime().range([0, widthl]),
@@ -79,6 +80,7 @@ var linechartDraw = function() {
         .append("rect")
         .attr("width", widthl)
         .attr("height", heightl);
+
      
 
     var context = svgl.append("g")
@@ -103,13 +105,58 @@ var linechartDraw = function() {
         var contextlineGroups = context.selectAll("g")
             .data(sources)
           .enter().append("g");
-        
-        var contextLines = contextlineGroups.append("path")
+
+
+    var focus = context.append("g")
+        .attr("class", "focus")
+        .style("display", "none");
+
+    focus.append("line")
+        .attr("class", "x-hover-line hover-line")
+        .attr("y1", 0)
+        .attr("y2", heightl);
+
+    focus.append("line")
+        .attr("class", "y-hover-line hover-line")
+        .attr("x1", widthl)
+        .attr("x2", widthl);
+
+    focus.append("text")
+        .attr("x", 15)
+        .attr("dy", ".31em");
+
+
+
+    var contextLines = contextlineGroups.append("path")
             .attr("class", "line")
-            .attr("d", function(d) { console.log(d); return line2(d.values); })
+            .attr("d", function(d) { return line2(d.values); })
             .style("stroke", function(d) {return color(d.key);})
-            .style("stroke-width", "1.5px")
+            .style("stroke-width", "2px")
             .attr("clip-path", "url(#clip)");
+
+
+    function mousemove() {
+        var x0 = x.invert(d3.mouse(this)[0]),
+            i = bisectDate(datal1, x0, 1),
+            d0 = datal1[i - 1],
+            d1 = datal1[i],
+            d = x0 - d0.YEARS > d1.YEARS - x0 ? d1 : d0;
+        focus.attr("transform", "translate(" + x(d.YEARS) + "," + y(d.QUANTITAT) + ")");
+        focus.select("text").text(function() { return d.QUANTITAT; });
+        focus.select(".x-hover-line").attr("y2", height - y(d.QUANTITAT));
+        focus.select(".y-hover-line").attr("x2", width + width);
+    }
+    contextlineGroups.selectAll("dot")
+        .data(datal1)
+        .enter().append("circle")
+        .attr("r", 3)
+        .style("stroke", function(d) {return color(d.MACROFAMILIA);})
+        .style("fill",function(d) {return color(d.MACROFAMILIA);})
+        .attr("cx", function(d) { return x(d.YEARS); })
+        .attr("cy", function(d) { return y2(+d.QUANTITAT); })
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove);
      
         context.append("g")
             .attr("class", "x axis")

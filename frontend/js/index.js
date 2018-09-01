@@ -106,14 +106,15 @@ $( function() {
 
         orientation: "vertical",
         range: true,
-        min: 2008,
+        min: 2007,
         max: 2017,
-        values: [ 2008, 2017 ],
+        values: [ 2007, 2017 ],
         slide: function( event, ui ) {
-            $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-            year1 = ui.values[ 0 ];
-            year2 = ui.values[ 1 ];
+           // $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            year1 = 2017 - ui.values[ 1 ] + 2007;
+            year2 = 2017 - ui.values[ 0 ] + 2007;
 
+            $( "#amount" ).val(year1 + " - " + year2);
             if(comarca) {
                 funcajax("test2",comarcaact2,year1,year2,families);
                 funcMap(comarcaact2+".json");

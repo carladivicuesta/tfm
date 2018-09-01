@@ -58,7 +58,7 @@
 
   <div class="container-fluid container-fluid2">
 
-    <div class="subtitle" id="title"> Estadístiques de la repartició d'aliments a la provincia de Barcelona durant els anys 2008 fins 2017 </div>
+    <div class="subtitle" id="title"> Estadístiques de la repartició d'aliments a la provincia de Barcelona durant els anys 2007 fins 2017 </div>
 
     <ul class="breadcrumb" id="breadcrumb">
       <li><a href="#">Inici</a></li>
@@ -96,7 +96,16 @@
               <label for="amount">Anys seleccionats:</label>
               <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
-            <div id="slider-range" style="height:250px;"></div>
+            <div class="row">
+              <div class="col-md-1">
+                <p>2007</p><br>
+                <p>2009</p><br>
+                <p>2011</p><br>
+                <p>2013</p><br>
+                <p>2015</p><br>
+                <p>2017</p><br></div>
+            <div class="col-md-1" id="slider-range" style="height:268px; margin-left: 35px; margin-top: 2px;"></div>
+            </div>
           </div>
         </div>
     </div>
@@ -145,12 +154,17 @@
           <div class="chart-title">
             Kg aliments repartits
           </div>
-          <div class="chart-stage">
+          <div class="chart-stage"    style = "height: 300px;background-image: url(images/carrito.svg);
+             background-repeat: no-repeat;
+             background-position: 0px -16px;
+             background-size: 300px;"
+             >
             <script src='js/d3-waffle.js'></script>
             <script src='js/waffle.js'></script>
             <script src='js/wafflevf.js'></script>
             <div class="container" id="chartwf-1" style="padding-left: 0px"></div>
-            <div style="margin-left: 150px;"><p>
+            <div style="   margin-left: 140px;
+    margin-top: 91px;"><p>
               <input type="text" id="numkilos" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p></div>
             <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

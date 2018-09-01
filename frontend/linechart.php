@@ -22,7 +22,7 @@ if( isset($_GET['param2']) ) {
 else {
   //echo("no entra");
 }
-$sql = "SELECT YEARS, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM $comarca WHERE YEARS > 2008 AND MACROFAMILIA IN ($families) GROUP BY YEARS, MACROFAMILIA";
+$sql = "SELECT YEARS, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM $comarca WHERE YEARS > 2006 AND MACROFAMILIA IN ($families) GROUP BY YEARS, MACROFAMILIA";
 
   //--------------------------------------------------------------------------
   // 2) Query database for data

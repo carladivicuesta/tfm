@@ -193,3 +193,5 @@ ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
 }
+.ui-slider-range { background: 	#bbbbbb;
+  border-color: #bbbbbb;}
