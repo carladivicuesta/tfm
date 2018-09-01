@@ -43,7 +43,21 @@ function totalFunction() {
       setTimeout(function(){
           waffleDraw();
       },500);
-    
+      $( function() {
+          $('text').each(function () {
+
+              if ($(this).text().includes("Less")) {
+                  $(this).text($(this).text().replace("Less than", "Menys que"));
+              }
+              if ($(this).text().includes("to")) {
+                  $(this).text($(this).text().replace("to", "a"));
+              }
+              if ($(this).text().includes("more")) {
+                  $(this).text($(this).text().replace("or more", "o més"));
+              }
+
+          });
+      });
   }
 
 }
@@ -94,6 +108,21 @@ function typeFamilyFunction() {
     setTimeout(function(){
         waffleDraw();
     },500);
+      $( function() {
+          $('text').each(function () {
+
+              if ($(this).text().includes("Less")) {
+                  $(this).text($(this).text().replace("Less than", "Menys que"));
+              }
+              if ($(this).text().includes("to")) {
+                  $(this).text($(this).text().replace("to", "a"));
+              }
+              if ($(this).text().includes("more")) {
+                  $(this).text($(this).text().replace("or more", "o més"));
+              }
+
+          });
+      });
     
   }
 
@@ -142,6 +171,14 @@ $( function() {
                 waffle2Draw();
             },500);
             $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
+
+            $('text').each(function(){
+
+                if ($(this).text().includes("Less")) { $(this).text($(this).text().replace("Less than", "Menys que")); }
+                if ($(this).text().includes("to")) { $(this).text($(this).text().replace("to", "a")); }
+                if ($(this).text().includes("more")) { $(this).text($(this).text().replace("or more", "o més")); }
+
+            });
         }
 
 
@@ -161,6 +198,14 @@ function addBreadcrumb(com) {
             '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+com+'</li>';
 
         $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys 2008 fins 2017';
+
+        $('text').each(function(){
+
+            if ($(this).text().includes("Less")) { $(this).text($(this).text().replace("Less than", "Menys que")); }
+            if ($(this).text().includes("to")) { $(this).text($(this).text().replace("to", "a")); }
+            if ($(this).text().includes("more")) { $(this).text($(this).text().replace("or more", "o més")); }
+
+        });
     });
 
     comarca = true;
@@ -176,7 +221,7 @@ function removeBreadcrumb() {
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
             '      <li>Comarques</li>';
 
-        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys 2008 fins 2017';
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
     });
 
     returnMap(year1,year2,families);

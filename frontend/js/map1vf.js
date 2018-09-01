@@ -2,7 +2,7 @@ var data1;
 var year1 = 2000;
 var year2 = 2017;
 var family = ["A","B","C","D","E","F","G","H","I"];
-	var width  = 500,
+	var width  = 600,
     	height = 290,
 	      projection = d3.geoMercator(),
 	      catalonia = void 0;
@@ -18,7 +18,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 	var color1b = d3.scaleThreshold()
-		.domain([0,1,3,5,10,20,80,150])
+		.domain([10,25,50,100,500,1000,1500,2000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
   	var funcajax = function(name,comarca,y1,y2,families) {
@@ -117,7 +117,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection.scale(s).translate(t); //reset scale and translation
 
-        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
+        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-70,0)");
         catalonia = map.selectAll(".comarca") 
 					.data(comarques.features);
 
@@ -203,7 +203,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection.scale(s).translate(t); //reset scale and translation
 
-        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
+        var map = svg.append('g').attr('class', 'boundary').attr("transform", "translate(-70,0)");
         catalonia = map.selectAll(".comarca") 
 					.data(comarques.features);
 

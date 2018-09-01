@@ -68,7 +68,7 @@
 
     <div class="row">
     <div class="col-md-2">
-      <div class="chart-wrapper">
+      <div class="chart-wrapper"  style="min-height: 1300px">
           <div class="chart-title">
             Família aliments
           </div>
@@ -93,8 +93,8 @@
         
           <div class="chart-stage" style="padding-bottom: 15px;">
             <p>
-              <label for="amount">Anys seleccionats:</label>
-              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+              <label for="amount">Anys seleccionats:
+              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 80px"></label>
             </p>
             <div class="row">
               <div class="col-md-1">
@@ -154,10 +154,11 @@
           <div class="chart-title">
             Kg aliments repartits
           </div>
-          <div class="chart-stage"    style = "height: 300px;background-image: url(images/carrito.svg);
-             background-repeat: no-repeat;
-             background-position: 0px -16px;
-             background-size: 300px;"
+          <div class="chart-stage"    style = "height: 300px;
+    background-image: url(images/carrito.svg);
+    background-repeat: no-repeat;
+    background-position: 0px -16px;
+    background-size: 300px;"
              >
             <script src='js/d3-waffle.js'></script>
             <script src='js/waffle.js'></script>
@@ -187,12 +188,14 @@
         </div>
         </div>
     </div>
-  </div>
-    <div class="row">
-      <div class="col-md-2"></div>
+
+
       <div class="col-md-10">
         <div class="grid-1-1">
           <div class="chart-wrapper">
+            <div class="chart-title">
+              Kg aliments repartits
+            </div>
           <div class="chart-stage">
           <div id="chart-line">
             <script src="topo/d3.v4.min.js"></script>
@@ -202,9 +205,8 @@
       </div>
         </div>
       </div>
-      </div>
     </div>
-
+  </div>
 
 </body>
 

@@ -2,7 +2,7 @@ var data2;
 var year1 = 2000;
 var year2 = 2017;
 var family = ["A","B","C","D","E","F","G","H","I"];
-	var width2  = 500,
+	var width2  = 600,
     	height2 = 290,
 	      projection2 = d3.geoMercator(),
 	      catalonia2 = void 0;
@@ -15,10 +15,10 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 	/* The scale */	  
 	var color2 = d3.scaleThreshold() 
-		.domain([1,2,3,5,10,20,80,150])
+		.domain([1,2,3,4,7,9,12,15])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 	var color2b = d3.scaleThreshold() 
-		.domain([0,0.1,1,1.5,2,5,10,20])
+		.domain([0.1,0.2,0.3,0.4,0.5,0.6,0.8,1])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 
   	var AjaxMap2 = function(name,comarca,y1,y2,families) {
@@ -50,15 +50,18 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 			.attr("class", "legendQuant")
 			.attr("transform", "translate(400,100)");
 
-		  var legend2 = d3.legendColor()
-			.labelFormat(d3.format(".0f")) //0 decimals
-			.labels(d3.legendHelpers.thresholdLabels)
-			.scale(color2) //reference to our Threshold scale
-			
-		  svg2.select(".legendQuant")
-		    .call(legend2);
+
 		  /* end of legend */	
 		  if (name.includes("comarques")) {
+
+              var legend2 = d3.legendColor()
+                  .labelFormat(d3.format(".0f")) //0 decimals
+                  .labels(d3.legendHelpers.thresholdLabels)
+                  .scale(color2) //reference to our Threshold scale
+
+              svg2.select(".legendQuant")
+                  .call(legend2);
+
 		  	  d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -67,6 +70,14 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 				});
 		  }
 		  else {
+              var legend2 = d3.legendColor()
+                  //.labelFormat(d3.format(".0f")) //0 decimals
+                  .labels(d3.legendHelpers.thresholdLabels)
+                  .scale(color2b) //reference to our Threshold scale
+
+              svg2.select(".legendQuant")
+                  .call(legend2);
+
 		  	d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -107,7 +118,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection2.scale(s).translate(t); //reset scale and translation
 
-        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
+        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-70,0)");
         catalonia2 = map2.selectAll(".comarca") 
 					.data(comarques.features);
 
@@ -169,7 +180,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2]; //return the map to the center of the screen
         projection2.scale(s).translate(t); //reset scale and translation
 
-        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-50,0)");
+        var map2 = svg2.append('g').attr('class', 'boundary').attr("transform", "translate(-70,0)");
         catalonia2 = map2.selectAll(".comarca") 
 					.data(comarques.features);
 
