@@ -2,6 +2,7 @@
   background: #f2f2f2;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-image: url("../images/background_home.png");
+  background-repeat: no-repeat;
 }
 
 .keen-dataviz {

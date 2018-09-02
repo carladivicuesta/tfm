@@ -3,17 +3,16 @@ var datal1;
   var parseDate = d3.timeParse("%Y");
   var total;
   var family = ["A","B","C","D","E","F","G","H","I"];
-  var change = false;
+  var changeline = false;
   var comarcaact = "";
 
   var linechartAjax = function(name,comarca,families) {
       family = families;
-      console.log("linefam",family);
     if(!comarca.includes("comarcas")) {
-        change = true;
+        changeline = true;
         comarcaact = comarca;
     }
-    else change = false;
+    else changeline = false;
     $(function () {
         $.ajax({                                      
           url: name+'.php',                  //the script to call to get data          
@@ -24,8 +23,7 @@ var datal1;
           success: function(data)          //on recieve of reply
           {
             datal1 = data;
-            console.log("datalinec",datal1);
-            } 
+            }
         });
     });
   };
@@ -191,12 +189,18 @@ var linechartDraw = function() {
           var year1 = d1[0].getFullYear();
           var year2 = d1[1].getFullYear()
 
-            if(change) {
+            if(changeline) {
                 funcajax("test2",comarcaact,year1,year2,family);
                 funcMap(comarcaact+".json");
 
                 AjaxMap2("test2",comarcaact,year1,year2,family);
                 Map2(comarcaact+".json");
+
+                waffle2Ajax("wafflePersones",year1,year2,comarcaact);
+
+                setTimeout(function(){
+                    waffle2Draw();
+                },500);
             }
             else {
                 funcajax("test","",year1,year2,family);
@@ -204,6 +208,12 @@ var linechartDraw = function() {
 
                 AjaxMap2("test","",year1,year2,family);
                 Map2("comarques.json");
+
+                waffle2Ajax("wafflePersones",year1,year2);
+
+                setTimeout(function(){
+                    waffle2Draw();
+                },500);
             }
 
             waffleAjax("waffle2",comarcaact,year1,year2,family);
@@ -212,11 +222,7 @@ var linechartDraw = function() {
                 waffleDraw();
             },500);
 
-            waffle2Ajax("wafflePersones",year1,year2);
 
-            setTimeout(function(){
-                waffle2Draw();
-            },500);
         }
 
 

@@ -150,6 +150,12 @@ $( function() {
 
                 AjaxMap2("test2",comarcaact2,year1,year2,families);
                 Map2(comarcaact2+".json");
+
+                waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ],comarcaact2);
+
+                setTimeout(function(){
+                    waffle2Draw();
+                },500);
             }
             else {
                 funcajax("test","",year1,year2,families);
@@ -157,6 +163,12 @@ $( function() {
 
                 AjaxMap2("test","",year1,year2,families);
                 Map2("comarques.json");
+
+                waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);
+
+                setTimeout(function(){
+                    waffle2Draw();
+                },500);
             }
 
             waffleAjax("waffle2",comarcaact2,year1,year2,families);
@@ -165,11 +177,7 @@ $( function() {
                 waffleDraw();
             },500);
 
-            waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);
 
-            setTimeout(function(){
-                waffle2Draw();
-            },500);
             $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
 
             $('text').each(function(){

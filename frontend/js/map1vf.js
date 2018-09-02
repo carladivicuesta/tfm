@@ -148,7 +148,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
                 waffleDraw();
             },500);
 
-            waffle2Ajax("wafflePersones",year1,year2,d.id);
+            waffle2Ajax("wafflePersones",year1,year2,str);
 
             setTimeout(function(){
                 waffle2Draw();
@@ -175,7 +175,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		//topo holds info from comarques.topojson; data holds info from població.csv
 		console.log("data1",data1);
 		topo.objects['com']
-			.geometries.forEach(function(d) { d.id = +d.properties.MUNICIPI;});
+			.geometries.forEach(function(d) { console.log("map",d); d.id = +d.properties.MUNICIPI;});
 		// CODICOMAR as id
 
 		data1.forEach ( function(d) { 

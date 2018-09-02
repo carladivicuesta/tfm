@@ -79,7 +79,6 @@
   };
 
 var waffle2Ajax = function(name,year1,year2,comarca) {
-    console.log("wafflpers1",comarca);
     $(function () {
         $.ajax({      
           url: name+'.php',                  //the script to call to get data          
@@ -90,8 +89,7 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
           dataType: 'json',                //data format                                      
           success: function(data)          //on recieve of reply
           {
-              console.log("Waffpers",data);
-            dataw2 = data;
+              dataw2 = data;
 
             } 
         });
@@ -109,11 +107,14 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
 
 
     var totalp = 0;
+    var pers = 0;
     var domain = dataw2.map(function(el) {
         totalp = el.quantitat;
+        if(el.quantitat <8000000) pers = 8000000/total1*100;
+        else pers = el.quantitat/total1*100
       return {
           name: "Persones",
-          value: el.quantitat/total1*100,
+          value: pers,
         };
       });
 
@@ -123,7 +124,7 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
                     .rows(5)
-                    .scale(1/3)
+                    .scale(1/2)
                     .icon("&#xf183;")
                     .adjust(0.375)
                     .colorscale(d3.scale.category10())

@@ -124,12 +124,35 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 
 		var changemap2 = function(d) {
-            funcajax("test2",d.id);
+            var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+
+            funcajax("test2",str,year1,year2,families);
+            AjaxMap2("test2",str,year1,year2,families);
+            addBreadcrumb(d.id);
             d3.selectAll(".boundary").remove();
+            d3.selectAll(".chartline").remove();
+            setTimeout(function(){
+                funcMap(str+".json");
+
+                Map2(str+".json");
+            },500);
+
+            linechartAjax("linechart",str,families);
 
             setTimeout(function(){
-                funcMap(d.id+".json");
-                Map2(d.id+".json");
+                linechartDraw();
+            },500);
+
+            waffleAjax("waffle2",str,year1,year2,families);
+
+            setTimeout(function(){
+                waffleDraw();
+            },500);
+
+            waffle2Ajax("wafflePersones",year1,year2,str);
+
+            setTimeout(function(){
+                waffle2Draw();
             },500);
 		};
 		
