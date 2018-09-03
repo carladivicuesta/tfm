@@ -134,6 +134,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
             setTimeout(function(){
                 linechartDraw();
             },500);
+            waffleTotAjax("waffle",str,year1,year2);
 
             waffleAjax("waffle2",str,year1,year2,families);
 

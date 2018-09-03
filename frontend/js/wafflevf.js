@@ -1,12 +1,32 @@
 
   var dataw1;
   var dataw2;
-  var parseDate = d3.timeParse("%Y");
-  var total;
+  var totalWaf;
   var family = ["A","B","C","D","E","F","G","H","I"];
   var total = 0;
   var changew = false;
   var comarcaux = "";
+
+  var waffleTotAjax = function(name,comarca,year1,year2) {
+
+      $(function () {
+          $.ajax({
+              url: name+'.php',                  //the script to call to get data
+              data: {'param': comarca, 'param2' : year1, 'param3': year2},
+              //Cambiar a type: POST si necesario
+              type: "GET",
+              // Formato de datos que se espera en la respuesta
+              dataType: 'json',                //data format
+              success: function(data)          //on recieve of reply
+              {
+                  totalWaf = data[0].QUANTITAT;
+
+              }
+          });
+      });
+      return totalWaf;
+  };
+
   var waffleAjax = function(name,comarca,year1,year2,families) {
       if(comarca != comarcaux) {
           comarcaux = comarca;
@@ -47,11 +67,10 @@
         });
         changew = false;
     }
-
     var domain = dataw1.map(function(el) {
         return {
             name: el.MACROFAMILIA,
-            value: el.QUANTITAT/total*100,
+            value: el.QUANTITAT/totalWaf*100,
         };
     });
 
@@ -136,15 +155,15 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
       $( "#numpers" ).val((Math.round(totalp * 100) / 100).toLocaleString() + " Persones");
   };
 
-
-waffleAjax("waffle2","comarcas_year_food",2000,2017);
+waffleTotAjax("waffle","comarcas_year_food",2007,2017);
+waffleAjax("waffle2","comarcas_year_food",2007,2017);
 
 
 setTimeout(function(){
     waffleDraw();
 },500);
 
-waffle2Ajax("wafflePersones",2000,2017);
+waffle2Ajax("wafflePersones",2007,2017);
 
 
 setTimeout(function(){

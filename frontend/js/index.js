@@ -1,6 +1,6 @@
 var families = ["A","B","C","D","E","F","G","H","I"];
-var year1 = 2007;
-var year2 = 2017;
+var year1index = 2007;
+var year2index = 2017;
 var comarcaact2 = "comarcas_year_food";
 var comarca = false;
 
@@ -19,25 +19,25 @@ function totalFunction() {
       d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact2,2000,2017,families);
+          funcajax("test2",comarcaact2,year1index,year2index,families);
           funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact2,2000,2017,families);
+          AjaxMap2("test2",comarcaact2,year1index,year2index,families);
           Map2(comarcaact2+".json");
       }
       else {
-          funcajax("test","",2000,2017,families);
+          funcajax("test","",year1index,year2index,families);
           funcMap("comarques.json");
 
-          AjaxMap2("test","",2000,2017,families);
+          AjaxMap2("test","",year1index,year2index,families);
           Map2("comarques.json");
       }
       linechartAjax("linechart",comarcaact2,families);
       setTimeout(function(){
           linechartDraw();
       },500);
-
-      waffleAjax("waffle2",comarcaact2,2000,2017,families);
+      waffleTotAjax("waffle",comarcaact2,year1index,year2index);
+      waffleAjax("waffle2",comarcaact2,year1index,year2index,families);
 
       setTimeout(function(){
           waffleDraw();
@@ -65,29 +65,28 @@ function typeFamilyFunction() {
     d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact2,2000,2017,families);
+          funcajax("test2",comarcaact2,year1index,year2index,families);
           funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact2,2000,2017,families);
+          AjaxMap2("test2",comarcaact2,year1index,year2index,families);
           Map2(comarcaact2+".json");
       }
       else {
-          funcajax("test","",2000,2017,families);
+          funcajax("test","",year1index,year2index,families);
           funcMap("comarques.json");
 
-          AjaxMap2("test","",2000,2017,families);
+          AjaxMap2("test","",year1index,year2index,families);
           Map2("comarques.json");
       }
 
 
-      console.log("comview", comarcaact2);
-      console.log("comview2", typeof comarcaact2);
     linechartAjax("linechart",comarcaact2,families);
     setTimeout(function(){
         linechartDraw();
     },500);
 
-    waffleAjax("waffle2",comarcaact2,2000,2017,families);
+    waffleTotAjax("waffle",comarcaact2,year1index,year2index);
+    waffleAjax("waffle2",comarcaact2,year1index,year2index,families);
     
     setTimeout(function(){
         waffleDraw();
@@ -109,15 +108,15 @@ $( function() {
         values: [ 2007, 2017 ],
         slide: function( event, ui ) {
            // $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-            year1 = 2017 - ui.values[ 1 ] + 2007;
-            year2 = 2017 - ui.values[ 0 ] + 2007;
+            year1index = 2017 - ui.values[ 1 ] + 2007;
+            year2index = 2017 - ui.values[ 0 ] + 2007;
 
-            $( "#amount" ).val(year1 + " - " + year2);
+            $( "#amount" ).val(year1index + " - " + year2index);
             if(comarca) {
-                funcajax("test2",comarcaact2,year1,year2,families);
+                funcajax("test2",comarcaact2,year1index,year2index,families);
                 funcMap(comarcaact2+".json");
 
-                AjaxMap2("test2",comarcaact2,year1,year2,families);
+                AjaxMap2("test2",comarcaact2,year1index,year2index,families);
                 Map2(comarcaact2+".json");
 
                 waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ],comarcaact2);
@@ -127,10 +126,10 @@ $( function() {
                 },500);
             }
             else {
-                funcajax("test","",year1,year2,families);
+                funcajax("test","",year1index,year2index,families);
                 funcMap("comarques.json");
 
-                AjaxMap2("test","",year1,year2,families);
+                AjaxMap2("test","",year1index,year2index,families);
                 Map2("comarques.json");
 
                 waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);
@@ -139,15 +138,15 @@ $( function() {
                     waffle2Draw();
                 },500);
             }
-
-            waffleAjax("waffle2",comarcaact2,year1,year2,families);
+            waffleTotAjax("waffle",comarcaact2,year1index,year2index);
+            waffleAjax("waffle2",comarcaact2,year1index,year2index,families);
 
             setTimeout(function(){
                 waffleDraw();
             },500);
 
 
-            $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
+            $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1index +' fins '+ year2index;
 
         }
 
@@ -172,7 +171,6 @@ function addBreadcrumb(com) {
     });
 
     comarca = true;
-    console.log("Assignem var",com);
     comarcaact2 = com.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
 }
 
@@ -184,10 +182,10 @@ function removeBreadcrumb() {
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
             '      <li>Comarques</li>';
 
-        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1index +' fins '+ year2index;
     });
 
-    returnMap(year1,year2,families);
+    returnMap(year1index,year2index,families);
 
     d3.selectAll(".chartline").remove();
     linechartAjax("linechart","comarcas_year_food",families);
@@ -197,13 +195,14 @@ function removeBreadcrumb() {
         linechartDraw();
     },500);
 
-    waffleAjax("waffle2","comarcas_year_food",year1,year2,families);
+    waffleTotAjax("waffle","comarcas_year_food",year1index,year2index);
+    waffleAjax("waffle2","comarcas_year_food",year1index,year2index,families);
 
     setTimeout(function(){
         waffleDraw();
     },500);
 
-    waffle2Ajax("wafflePersones",year1,year2);
+    waffle2Ajax("wafflePersones",year1index,year2index);
 
     setTimeout(function(){
         waffle2Draw();

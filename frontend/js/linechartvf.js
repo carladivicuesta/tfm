@@ -4,13 +4,13 @@ var datal1;
   var total;
   var family = ["A","B","C","D","E","F","G","H","I"];
   var changeline = false;
-  var comarcaact = "";
+  var comarcaline = "";
 
   var linechartAjax = function(name,comarca,families) {
       family = families;
     if(!comarca.includes("comarcas")) {
         changeline = true;
-        comarcaact = comarca;
+        comarcaline = comarca;
     }
     else changeline = false;
     $(function () {
@@ -190,13 +190,13 @@ var linechartDraw = function() {
           var year2 = d1[1].getFullYear()
 
             if(changeline) {
-                funcajax("test2",comarcaact,year1,year2,family);
-                funcMap(comarcaact+".json");
+                funcajax("test2",comarcaline,year1,year2,family);
+                funcMap(comarcaline+".json");
 
-                AjaxMap2("test2",comarcaact,year1,year2,family);
-                Map2(comarcaact+".json");
+                AjaxMap2("test2",comarcaline,year1,year2,family);
+                Map2(comarcaline+".json");
 
-                waffle2Ajax("wafflePersones",year1,year2,comarcaact);
+                waffle2Ajax("wafflePersones",year1,year2,comarcaline);
 
                 setTimeout(function(){
                     waffle2Draw();
@@ -215,8 +215,8 @@ var linechartDraw = function() {
                     waffle2Draw();
                 },500);
             }
-
-            waffleAjax("waffle2",comarcaact,year1,year2,family);
+            waffleTotAjax("waffle",comarcaline,year1,year2);
+            waffleAjax("waffle2",comarcaline,year1,year2,family);
 
             setTimeout(function(){
                 waffleDraw();
