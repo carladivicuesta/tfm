@@ -1,0 +1,198 @@
+.keen-dashboard {
+  background: #f2f2f2;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-image: url("../images/background_home.png");
+  background-repeat: no-repeat;
+}
+
+.keen-dataviz {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+.keen-dataviz-title {
+  border-bottom: 1px solid #e7e7e7;
+  border-radius: 2px 2px 0 0;
+  font-size: 13px;
+  padding: 2px 10px 0;
+  text-transform: uppercase;
+}
+.keen-dataviz-stage {
+  padding: 10px;
+}
+
+.keen-dataviz-notes {
+  background: #fbfbfb;
+  border-radius: 0 0 2px 2px;
+  border-top: 1px solid #e7e7e7;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 11px;
+  padding: 0 10px;
+}
+
+.keen-dataviz .keen-dataviz-metric {
+  border-radius: 2px;
+}
+
+.keen-dataviz .keen-spinner-indicator {
+  border-top-color: rgba(0, 187, 222, .4);
+}
+
+.keen-dashboard .chart-wrapper {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  min-height: 360px;
+}
+.keen-dashboard .chart-wrapper .chart-title {
+  font-weight: bold;
+  color: #08519c;
+  font-size: 16px;
+  padding: 7px 10px 4px;
+
+}
+
+.keen-dashboard .chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.keen-dashboard .chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+.keen-dashboard .chart-wrapper .keen-dataviz,
+.keen-dashboard .chart-wrapper .keen-dataviz-title,
+.keen-dashboard .chart-stage .chart-title {
+  border: medium none;
+}
+
+.line { fill: none; }
+#tooltip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+#tooltip.hidden {
+  display: none;
+}
+#tooltip p {
+  margin: 0;
+  font-family: sans-serif;
+}
+#tooltip .title {
+  text-decoration: underline;
+}
+.commit-circle, .legend-circle {
+  stroke-width: 0.22em;
+}
+.commit-circle.selected, .legend-circle.selected {
+  stroke-width: 0.40em;
+}
+
+.navbar-inverse{
+  background-image: url(../images/background_home.png);
+  /* background-size: 80%; */
+  background-position: top;
+}
+
+.prin-title {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 200;
+  padding: 7px 10px 4px;
+  text-align: center;
+  background-image: url(../images/background_home_header.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  height: 111px;
+}
+
+.subtitle{
+  color: #08519c;
+  font-size: 20px;
+  font-weight: 200;
+  text-align: center;
+}
+
+.container-fluid2 {
+  background: #f2f2f2;
+  padding-top: 80px;
+}
+
+#container {
+  min-width: 310px;
+  max-width: 800px;
+  height: 300px;
+  margin: 0 auto
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.row {
+    margin-right: 0; 
+    margin-left: 0; 
+  }
+
+.pico {
+  margin-top: -195px;
+  margin-left: -110px;
+}
+
+#chartwf-1 {
+  margin-left: 101px;
+}
+
+.legend.persones {
+  display: none;
+}
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 13px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 2px;
+  color: black;
+  content: ">\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+.ui-slider-range { background: 	#bbbbbb;
+  border-color: #bbbbbb;}

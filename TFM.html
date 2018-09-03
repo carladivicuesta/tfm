@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<!-- https://github.com/keen/dashboards -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Layouts &raquo; Hero-Thirds</title>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.2/holder.min.js" type="text/javascript"></script>
+  <script>
+    Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+  </script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/country-region-dropdown-menu/1.2.1/geodatasource-cr.min.js" type="text/javascript"></script>
+
+ keen-analysis@1.2.2 -->
+  <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.2.js" type="text/javascript"></script>
+
+  <!-- keen-dataviz@1.1.3 -->
+  <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.js" type="text/javascript"></script>
+
+  
+  <script src='js/index.js'></script>
+  <!-- Dashboard -->
+  <link rel="stylesheet" type="text/css" href="css/keen-dashboards.css" />
+  <!-- try resize-->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script>
+
+  </script>
+</head>
+
+<body class="keen-dashboard" style="padding-top: 111px;">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+
+      <div class="prin-title">
+        <img src="images/logo.png" style="padding-top: 21px; margin-left: -720px;">
+
+</div>
+      <img src="images/menu.png" style="padding-left: 300px; width: 80%">
+      <div class="navbar-collapse collapse">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid container-fluid2">
+
+    <div class="subtitle" id="title"> Estadístiques de la repartició d'aliments a la provincia de Barcelona durant els anys 2007 fins 2017 </div>
+
+    <ul class="breadcrumb" id="breadcrumb">
+      <li><a href="#">Inici</a></li>
+      <li><a href="#">El Banc dels Aliments</a></li>
+      <li>Comarques</li>
+    </ul>
+
+    <div class="row">
+    <div class="col-md-2">
+      <div class="chart-wrapper"  style="min-height: 1300px">
+          <div class="chart-title">
+            Família aliments
+          </div>
+          <div class="chart-stage">
+            <form action="">
+            <script src='js/index.js'></script>
+            <input id="totalCheck" type="checkbox" name="familia" value="Total" onclick="totalFunction()" checked> Total<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="A" onclick="typeFamilyFunction()"> Làctics i derivats<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="B" onclick="typeFamilyFunction()"> Farines i derivats<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="C" onclick="typeFamilyFunction()"> Arròs, pasta, sucre i llegums<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="D" onclick="typeFamilyFunction()"> Conserves i plats preparats<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="E" onclick="typeFamilyFunction()"> Olis i greixos<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="F" onclick="typeFamilyFunction()"> Carn, peix i embotits<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="G" onclick="typeFamilyFunction()"> Begudes i infusions<br>
+            <input type="checkbox" class="typeFamily" name="familia" value="H" onclick="typeFamilyFunction()"> Fruites i verdures fresques<br>
+            </form>
+          </div>
+            <br>
+          <div class="chart-title">
+            Anys
+          </div>
+        
+          <div class="chart-stage" style="padding-bottom: 15px;">
+            <p>
+              <label for="amount">Anys seleccionats:
+              <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 80px"></label>
+            </p>
+            <div class="row">
+              <div class="col-md-1">
+                <p>2007</p><br>
+                <p>2009</p><br>
+                <p>2011</p><br>
+                <p>2013</p><br>
+                <p>2015</p><br>
+                <p>2017</p><br></div>
+            <div class="col-md-1" id="slider-range" style="height:268px; margin-left: 35px; margin-top: 2px;"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="row">
+        <div id="grid-1-1">
+          <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments repartits
+          </div>
+        <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="topo/d3.v4.min.js"></script>
+            <script src="topo/topojson.v1.min.js"></script>
+            <script src="topo/colorbrewer.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <div id="chart-map1">
+              <script src='js/map1vf.js'></script>
+            </div>
+          </div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="grid-1-1">
+          <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments/persones
+          </div>
+        <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="topo/d3.v4.min.js"></script>
+            <script src="topo/topojson.v1.min.js"></script>
+            <script src="topo/colorbrewer.min.js"></script>
+            <div id="chart-map2">
+              <script src='js/map2vf.js'></script>
+            </div>
+          </div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="row">
+           <div class="chart-wrapper">
+          <div class="chart-title">
+            Kg aliments repartits
+          </div>
+          <div class="chart-stage"    style = "height: 300px;
+    background-image: url(images/carrito.svg);
+    background-repeat: no-repeat;
+    background-position: 0px -16px;
+    background-size: 300px;"
+             >
+            <script src='js/d3-waffle.js'></script>
+            <script src='js/wafflevf.js'></script>
+            <div class="container" id="chartwf-1" style="padding-left: 0px"></div>
+            <div style="   margin-left: 140px;
+    margin-top: 91px;"><p>
+              <input type="text" id="numkilos" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+          </div>
+        </div>
+        </div>
+        <div class="row">
+           <div class="chart-wrapper">
+          <div class="chart-title">
+            Persones ateses
+          </div>
+          <div class="chart-stage">
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <div id="chartwf-2"></div>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <div style="margin-left: 150px;"><p>
+              <input type="text" id="numpers" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </p></div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+
+      <div class="col-md-10">
+        <div class="grid-1-1">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Kg aliments repartits
+            </div>
+          <div class="chart-stage">
+          <div id="chart-line">
+            <script src="topo/d3.v4.min.js"></script>
+            <script src='js/linechartvf.js'></script>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+</html>
