@@ -4,7 +4,7 @@ function OpenCon()
  {
  $dbhost = "localhost";
  $dbuser = "root";
- $dbpass = "carla94";
+ $dbpass = "";
  $db = "basedades";
  
  
