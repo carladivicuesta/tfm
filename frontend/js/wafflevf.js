@@ -24,7 +24,6 @@
           dataType: 'json',                //data format      
           success: function(data)          //on recieve of reply
           {
-            console.log("succes",year1,year2,family);
             dataw1 = data;
 
             } 
@@ -55,9 +54,7 @@
             value: el.QUANTITAT/total*100,
         };
     });
-    //var range = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6","#b82e2e", "#dd4477", "#66aa00", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
-          //var palette = d3.scale.ordinal().domain(domain).range(range);
-    //var palette =  d3.scale.ordinal().domain(domain).range(color);
+
 
     var domainw1 = ["A", "B","C", "D", "E", "F","G", "H", "I", "J"];
     var range = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a","#d62728", "#ff9896", "#9467bd", "#c5b0d5"];
@@ -100,7 +97,6 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
 
   var waffle2Draw = function() {
     var color = d3.scale.category20();
-          //var domain = ["Total", "Làctics i derivats", "Farines i derivats","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     var domain = ["Total", "A", "B","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     
     var total1 = 555859393;
@@ -120,7 +116,6 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
 
 
     var range = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6","#b82e2e", "#dd4477", "#66aa00", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
-          //var palette = d3.scale.ordinal().domain(domain).range(range);
     var palette =  d3.scale.ordinal().domain(domain).range(color);
     var chart4 = d3waffle()
                     .rows(5)
