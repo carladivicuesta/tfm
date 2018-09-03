@@ -15,10 +15,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 	/* The scale */	  
 	var color2 = d3.scaleThreshold() 
-		.domain([1,2,3,4,7,9,12,15])
-		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
-	var color2b = d3.scaleThreshold() 
-		.domain([0.1,0.2,0.3,0.4,0.5,0.6,0.8,1])
+		//.domain([1,2,3,4,7,9,12,15])
 		.range(["#f7fcfd","#e5f5f9","#ccece6","#99d8c9","#66c2a4","#41ae76","#238b45","#006d2c","#00441b"]) //extracted from d3.schemeBuPu
 
   	var AjaxMap2 = function(name,comarca,y1,y2,families) {
@@ -54,14 +51,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		  /* end of legend */	
 		  if (name.includes("comarques")) {
 
-              var legend2 = d3.legendColor()
-                  .labelFormat(d3.format(".0f")) //0 decimals
-                  .labels(d3.legendHelpers.thresholdLabels)
-                  .scale(color2) //reference to our Threshold scale
-
-              svg2.select(".legendQuant")
-                  .call(legend2);
-
 		  	  d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -73,7 +62,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
               var legend2 = d3.legendColor()
                   //.labelFormat(d3.format(".0f")) //0 decimals
                   .labels(d3.legendHelpers.thresholdLabels)
-                  .scale(color2b) //reference to our Threshold scale
+                  .scale(color2) //reference to our Threshold scale
 
               svg2.select(".legendQuant")
                   .call(legend2);
@@ -90,17 +79,35 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 	  
       function process2(topo,data){ 
 		//topo holds info from comarques.topojson; data holds info from població.csv
-		
-		topo.objects['com']
-			.geometries.forEach(function(d) { d.id = d.properties.NOMCOMAR;});
-		// CODICOMAR as id
+          var quantmax3 = 0;
+          var comarcaquant = "";
+          data2.forEach ( function(d) {
+              if (quantmax3 < +d['QUANTITAT']) {
+                  quantmax3 = +d['QUANTITAT'];
+                  comarcaquant = d['COMARCA'];
+              }
+              d['COMARCA'] = d['COMARCA'],
+			  d['QUANTITAT'] = +d['QUANTITAT'];
+          });
 
-		data2.forEach ( function(d) { 
-			//first we create an object with all the values
-			d['COMARCA'] = d['COMARCA'],
-			d['QUANTITAT'] = +d['QUANTITAT'];
-		});
-		var dataKV2 = data2.reduce(function(res,el) { 
+		var habmax1 = 0;
+		topo.objects['com']
+			.geometries.forEach(function(d) { d.id = d.properties.NOMCOMAR;
+			if (comarcaquant == d.properties.NOMCOMAR) {
+                habmax1 = +d.properties.HABITANTS;
+            } });
+
+
+		quantmax3 = quantmax3/habmax1;
+          color2.domain([quantmax3/10,quantmax3/8,quantmax3/6,quantmax3/5,quantmax3/4,quantmax3/3,quantmax3/2,quantmax3/2+quantmax3/4,quantmax3/2+quantmax3/3]);
+          var legend2 = d3.legendColor()
+              .labels(d3.legendHelpers.thresholdLabels)
+              .scale(color2) //reference to our Threshold scale
+
+          svg2.select(".legendQuant")
+              .call(legend2);
+
+          var dataKV2 = data2.reduce(function(res,el) {
 			res[el.COMARCA] = el; 
 			return res; },{});
 		// then we create a dictionary, with CODICOMAR as key
@@ -169,20 +176,51 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 				return color2(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
 			});
 
+          $( function() {
+              $('text').each(function () {
+
+                  if ($(this).text().includes("Less")) {
+                      $(this).text($(this).text().replace("Less than", "Menys que"));
+                  }
+                  if ($(this).text().includes("to")) {
+                      $(this).text($(this).text().replace("to", "a"));
+                  }
+                  if ($(this).text().includes("more")) {
+                      $(this).text($(this).text().replace("or more", "o més"));
+                  }
+
+              });
+          });
+
       };
 
-      function processMun2(topo,data){ 
-		//topo holds info from comarques.topojson; data holds info from població.csv
-		console.log("data1",data2);
-		topo.objects['com']
-			.geometries.forEach(function(d) { d.id = +d.properties.MUNICIPI;});
-		// CODICOMAR as id
+      function processMun2(topo,data){
 
-		data2.forEach ( function(d) { 
-			//first we create an object with all the values
-			d['MUNICIPI'] = +d['MUNICIPI'],
-			d['QUANTITAT'] = +d['QUANTITAT'];
-		});
+          var quantmax4 = 0;
+          var mun = 0;
+          data2.forEach ( function(d) {
+              if(quantmax4 < +d['QUANTITAT']){
+                  quantmax4 = +d['QUANTITAT'];
+                  mun = +d['MUNICIPI'];
+			  }
+              d['MUNICIPI'] = +d['MUNICIPI'],
+                  d['QUANTITAT'] = +d['QUANTITAT'];
+          });
+
+          var habmax2 = 0;
+
+		topo.objects['com']
+			.geometries.forEach(function(d) { d.id = +d.properties.MUNICIPI;
+			if (mun == +d.properties.MUNICIPI){
+                habmax2 = d.properties.HABITANTS;
+			} });
+
+
+          quantmax4 = quantmax4/habmax2;
+          color2.domain([quantmax4/10,quantmax4/8,quantmax4/6,quantmax4/5,quantmax4/4,quantmax4/3,quantmax4/2,quantmax4/2+quantmax4/4,quantmax4/2+quantmax4/3]);
+          var legend2 = d3.legendColor()
+              .labels(d3.legendHelpers.thresholdLabels)
+              .scale(color2) //reference to our Threshold scale
 		var dataKV2 = data2.reduce(function(res,el) { 
 			res[el.MUNICIPI] = el; 
 			return res; },{});
@@ -218,11 +256,27 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr("fill", function(d) {
 		   		if(dataKV2[d.id]) {
 		   			console.log("hab",dataKV2[+d.id].QUANTITAT,d.properties.HABITANTS);
-                    return color2b(dataKV2[+d.id].QUANTITAT/d.properties.HABITANTS);
+                    return color2(dataKV2[+d.id].QUANTITAT/d.properties.HABITANTS);
                 }
 
-		   		else return color2b(0);
+		   		else return color2(0);
 			});
+
+          $( function() {
+              $('text').each(function () {
+
+                  if ($(this).text().includes("Less")) {
+                      $(this).text($(this).text().replace("Less than", "Menys que"));
+                  }
+                  if ($(this).text().includes("to")) {
+                      $(this).text($(this).text().replace("to", "a"));
+                  }
+                  if ($(this).text().includes("more")) {
+                      $(this).text($(this).text().replace("or more", "o més"));
+                  }
+
+              });
+          });
 
       };
 

@@ -3,7 +3,6 @@ var year1 = 2007;
 var year2 = 2017;
 var comarcaact2 = "comarcas_year_food";
 var comarca = false;
-console.log('holaa init');
 
 function totalFunction() {
   // Get the checkbox
@@ -43,21 +42,6 @@ function totalFunction() {
       setTimeout(function(){
           waffleDraw();
       },500);
-      $( function() {
-          $('text').each(function () {
-
-              if ($(this).text().includes("Less")) {
-                  $(this).text($(this).text().replace("Less than", "Menys que"));
-              }
-              if ($(this).text().includes("to")) {
-                  $(this).text($(this).text().replace("to", "a"));
-              }
-              if ($(this).text().includes("more")) {
-                  $(this).text($(this).text().replace("or more", "o més"));
-              }
-
-          });
-      });
   }
 
 }
@@ -108,21 +92,6 @@ function typeFamilyFunction() {
     setTimeout(function(){
         waffleDraw();
     },500);
-      $( function() {
-          $('text').each(function () {
-
-              if ($(this).text().includes("Less")) {
-                  $(this).text($(this).text().replace("Less than", "Menys que"));
-              }
-              if ($(this).text().includes("to")) {
-                  $(this).text($(this).text().replace("to", "a"));
-              }
-              if ($(this).text().includes("more")) {
-                  $(this).text($(this).text().replace("or more", "o més"));
-              }
-
-          });
-      });
     
   }
 
@@ -180,13 +149,6 @@ $( function() {
 
             $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
 
-            $('text').each(function(){
-
-                if ($(this).text().includes("Less")) { $(this).text($(this).text().replace("Less than", "Menys que")); }
-                if ($(this).text().includes("to")) { $(this).text($(this).text().replace("to", "a")); }
-                if ($(this).text().includes("more")) { $(this).text($(this).text().replace("or more", "o més")); }
-
-            });
         }
 
 
@@ -207,13 +169,6 @@ function addBreadcrumb(com) {
 
         $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys 2008 fins 2017';
 
-        $('text').each(function(){
-
-            if ($(this).text().includes("Less")) { $(this).text($(this).text().replace("Less than", "Menys que")); }
-            if ($(this).text().includes("to")) { $(this).text($(this).text().replace("to", "a")); }
-            if ($(this).text().includes("more")) { $(this).text($(this).text().replace("or more", "o més")); }
-
-        });
     });
 
     comarca = true;

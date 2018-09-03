@@ -15,10 +15,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 	/* The scale */	  
 	var color1 = d3.scaleThreshold()
-		.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
-		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
-	var color1b = d3.scaleThreshold()
-		.domain([10,25,50,100,500,1000,1500,2000])
+		//.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
   	var funcajax = function(name,comarca,y1,y2,families) {
@@ -51,31 +48,16 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
 		  /* end of legend */	
 		  if (name.includes("comarques")) {
-              var legend = d3.legendColor()
-                  .labelFormat(d3.format(".0f")) //0 decimals
-                  .labels(d3.legendHelpers.thresholdLabels)
-                  .scale(color1) //reference to our Threshold scale
-
-              svg.select(".legendQuant")
-                  .call(legend);
-              /* end of legend */
-
               d3.queue()
-				.defer(d3.json,"mapes/"+name)
-				.await(function(error,topo,data){ //this will await in queue
-					process(topo,data)			//topo for topographic info, data for metadata
+                  .defer(d3.json, "mapes/" + name)
+                  .await(function (error, topo, data) { //this will await in queue
+                      process(topo, data)			//topo for topographic info, data for metadata
 
-				});
-		  }
+                  });
+          }
+
 		  else {
-              var legend = d3.legendColor()
-                  .labelFormat(d3.format(".0f")) //0 decimals
-                  .labels(d3.legendHelpers.thresholdLabels)
-                  .scale(color1b) //reference to our Threshold scale
 
-              svg.select(".legendQuant")
-                  .call(legend);
-              /* end of legend */
               d3.queue()
 				.defer(d3.json,"mapes/"+name)
 				.await(function(error,topo,data){ //this will await in queue
@@ -92,12 +74,23 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		topo.objects['com']
 			.geometries.forEach(function(d) { d.id = d.properties.NOMCOMAR;});
 		// CODICOMAR as id
+		  var quantmax = 0;
 		data1.forEach ( function(d) {
+			if(+d['QUANTITAT'] > quantmax) quantmax = +d['QUANTITAT'];
 			//first we create an object with all the values
 			//d['CODICOMAR'] = +d['CODICOMAR'],
 			d['COMARCA'] = d['COMARCA'],
 			d['QUANTITAT'] = +d['QUANTITAT'];
 		});
+		color1.domain([quantmax/1000,quantmax/500,quantmax/100,quantmax/50,quantmax/5,quantmax/3,quantmax/2,quantmax/2+quantmax/3]);
+          var legend = d3.legendColor()
+              .labelFormat(d3.format(".0f")) //0 decimals
+              .labels(d3.legendHelpers.thresholdLabels)
+              .scale(color1) //reference to our Threshold scale
+
+          svg.select(".legendQuant")
+              .call(legend);
+          /* end of legend */
 		var dataKV = data1.reduce(function(res,el) { 
 			res[el.COMARCA] = el; 
 			return res; },{});
@@ -166,23 +159,49 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .on("click",changemap)
 		   .attr("fill", function(d) {
-				return color1(dataKV[d.id].QUANTITAT/10);
+				return color1(dataKV[d.id].QUANTITAT);
 			});
+
+          $( function() {
+              $('text').each(function () {
+
+                  if ($(this).text().includes("Less")) {
+                      $(this).text($(this).text().replace("Less than", "Menys que"));
+                  }
+                  if ($(this).text().includes("to")) {
+                      $(this).text($(this).text().replace("to", "a"));
+                  }
+                  if ($(this).text().includes("more")) {
+                      $(this).text($(this).text().replace("or more", "o més"));
+                  }
+
+              });
+          });
 
       };
 
       function processMun(topo,data){ 
 		//topo holds info from comarques.topojson; data holds info from població.csv
-		console.log("data1",data1);
 		topo.objects['com']
 			.geometries.forEach(function(d) { console.log("map",d); d.id = +d.properties.MUNICIPI;});
 		// CODICOMAR as id
-
-		data1.forEach ( function(d) { 
+		var quantmax2 = 0;
+		data1.forEach ( function(d) {
+            if(+d['QUANTITAT'] > quantmax2) quantmax2 = +d['QUANTITAT'];
 			//first we create an object with all the values
 			d['MUNICIPI'] = +d['MUNICIPI'],
 			d['QUANTITAT'] = +d['QUANTITAT'];
 		});
+
+          color1.domain([quantmax2/1000,quantmax2/500,quantmax2/100,quantmax2/50,quantmax2/5,quantmax2/3,quantmax2/2,quantmax2/2+quantmax2/3]);
+          var legend = d3.legendColor()
+              .labelFormat(d3.format(".0f")) //0 decimals
+              .labels(d3.legendHelpers.thresholdLabels)
+              .scale(color1) //reference to our Threshold scale
+
+          svg.select(".legendQuant")
+              .call(legend);
+          /* end of legend */
 		var dataKV = data1.reduce(function(res,el) { 
 			res[el.MUNICIPI] = el; 
 			return res; },{});
@@ -216,9 +235,24 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .style("stroke", "#000")
 		   .attr("fill", function(d) {
-		   		if(dataKV[d.id]) return color1b(dataKV[+d.id].QUANTITAT/10);
-		   		else return color1b(0);
+		   		if(dataKV[d.id]) return color1(dataKV[+d.id].QUANTITAT);
+		   		else return color1(0);
 			});
+          $( function() {
+              $('text').each(function () {
+
+                  if ($(this).text().includes("Less")) {
+                      $(this).text($(this).text().replace("Less than", "Menys que"));
+                  }
+                  if ($(this).text().includes("to")) {
+                      $(this).text($(this).text().replace("to", "a"));
+                  }
+                  if ($(this).text().includes("more")) {
+                      $(this).text($(this).text().replace("or more", "o més"));
+                  }
+
+              });
+          });
 
       };
 
