@@ -166,7 +166,8 @@ function addBreadcrumb(com) {
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
             '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+com+'</li>';
 
-        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys 2008 fins 2017';
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys '+ year1index +' fins '+ year2index;
+
 
     });
 

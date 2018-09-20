@@ -56,7 +56,7 @@
     var color = d3.scale.category20();
 
     //var total = dataw1.forEach(function(d) { return +d.QUANTITAT});
-    if(changew) {
+    //if(changew) {
         total = 0;
         var domain2 = dataw1.map(function(el) {
             total += +el.QUANTITAT;
@@ -66,7 +66,7 @@
             };
         });
         changew = false;
-    }
+    //}
     var domain = dataw1.map(function(el) {
         return {
             name: el.MACROFAMILIA,
@@ -118,14 +118,15 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
     var color = d3.scale.category20();
     var domain = ["Total", "A", "B","Arròs,pasta,sucre,llegums", "Conserves i plats preparats", "Fruites i verdures fresques","Olis i greixos",  "Carn,peix,embotits", "Begudes i infusions", "Congelats"];
     
-    var total1 = 555859393;
+    var total1 = 1259872;
 
 
     var totalp = 0;
     var pers = 0;
     var domain = dataw2.map(function(el) {
         totalp = el.quantitat;
-        if(el.quantitat <8000000) pers = 8000000/total1*100;
+        if(el.quantitat <20000) pers = 20000/total1*100;
+        else if(el.quantitat == 0) pers =0;
         else pers = el.quantitat/total1*100
       return {
           name: "Persones",

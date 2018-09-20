@@ -201,6 +201,7 @@ var linechartDraw = function() {
                 setTimeout(function(){
                     waffle2Draw();
                 },500);
+                $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ comarcaline +' durant els anys '+ year1 +' fins '+ year2;
             }
             else {
                 funcajax("test","",year1,year2,family);
@@ -214,6 +215,8 @@ var linechartDraw = function() {
                 setTimeout(function(){
                     waffle2Draw();
                 },500);
+
+                $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1 +' fins '+ year2;
             }
             waffleTotAjax("waffle",comarcaline,year1,year2);
             waffleAjax("waffle2",comarcaline,year1,year2,family);
@@ -222,7 +225,10 @@ var linechartDraw = function() {
                 waffleDraw();
             },500);
 
+            $( "#slider-range" ).slider({
+                values: [ 2017 - year2 + 2007, 2017 - year1 + 2007 ]});
 
+            $( "#amount" ).val(year1  + " - " + year2);
         }
 
 
