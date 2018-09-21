@@ -129,29 +129,69 @@ var linechartDraw = function() {
             .style("stroke-width", "2px")
             .attr("clip-path", "url(#clip)");
 
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "waffle-tooltip")
+        .style("position", "absolute")
+        .style("text-align", "right")
+        .style("background", "#333")
+        .style("margin", "3px")
+        .style("color","white")
+        .style("padding","3px")
+        .style("border","0px")
+        .style("border-radius","3px") // 3px rule
+        .style("opacity",0)
+        .style("cursor", "default");
 
-    function mousemove() {
+    function mouseover(d){
+
+        tooltip.transition().duration(100).style("opacity", .9);
+        var num = Math.round(+d.QUANTITAT * 100)/100;
+        num = num.toLocaleString();
+        txt = "<b>" + num + " Kg</b><br>"
+        tooltip.html(txt);
+        var idcontainer = d.YEARS.getYear() + d.MACROFAMILIA;
+        d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 0.2);
+        d3.select("#" + idcontainer).selectAll("text." + d.class).transition().duration(100).style("opacity", 1);
+    }
+
+    function mouseout(d){
+        var idcontainer = d.YEARS.getYear() + d.MACROFAMILIA;
+        tooltip.transition().duration(100).style("opacity", 0);
+        d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 1);
+    }
+
+    function mousemove(d){
+        tooltip
+            .style("left", (d3.event.pageX + 0 ) + "px")
+            .style("top", (d3.event.pageY + - 30) + "px");
+//old
+        /*
         var x0 = x.invert(d3.mouse(this)[0]),
             i = bisectDate(datal1, x0, 1),
             d0 = datal1[i - 1],
-            d1 = datal1[i],
-            d = x0 - d0.YEARS > d1.YEARS - x0 ? d1 : d0;
+            d1 = datal1[i];
+            //d = x0 - d0.YEARS > d1.YEARS - x0 ? d1 : d0;
         focus.attr("transform", "translate(" + x(d.YEARS) + "," + y(d.QUANTITAT) + ")");
         focus.select("text").text(function() { return d.QUANTITAT; });
         focus.select(".x-hover-line").attr("y2", height - y(d.QUANTITAT));
-        focus.select(".y-hover-line").attr("x2", width + width);
+        focus.select(".y-hover-line").attr("x2", width + width);*/
     }
+
+
     contextlineGroups.selectAll("dot")
         .data(datal1)
         .enter().append("circle")
         .attr("r", 3)
+        .attr("id",function(d) {return d.YEARS.getYear() + d.MACROFAMILIA;})
         .style("stroke", function(d) {return color(d.MACROFAMILIA);})
         .style("fill",function(d) {return color(d.MACROFAMILIA);})
         .attr("cx", function(d) { return x(d.YEARS); })
         .attr("cy", function(d) { return y2(+d.QUANTITAT); })
-        .on("mouseover", function() { focus.style("display", null); })
-        .on("mouseout", function() { focus.style("display", "none"); })
-        .on("mousemove", mousemove);
+        .on("mouseover", mouseover)// function() { focus.style("display", null); })
+        .on("mouseout", mouseout)//function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove)
+        .append("text");
      
         context.append("g")
             .attr("class", "x axis")
