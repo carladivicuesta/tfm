@@ -53,9 +53,6 @@ var linechartDraw = function() {
         xAxis2 = d3.axisBottom(x2),//.ticks(d3.time.years, 1).tickFormat(d3.timeFormat("%Y")[1]),
         yAxis = d3.axisLeft(y),
         yAxis2 = d3.axisLeft(y2);
-     
-    var brush = d3.brushX()
-        .on("brush", brush);
 
 
     var line = d3.line()
@@ -166,67 +163,9 @@ var linechartDraw = function() {
           .call(yAxis2);
      
         context.append("g")
-            .attr("class", "x brush")
-            .call(brush)
           .selectAll("rect")
             .attr("y", -6)
             .attr("height", heightl + 7);
-
-        function brush() {
-          if (!d3.event.sourceEvent) return; // Only transition after input.
-          if (!d3.event.selection) return; 
-          if (d3.event.sourceEvent.type === "brush") return;
-
-          var d0 = d3.event.selection.map(x2.invert),
-              d1 = d0.map(d3.timeYear.round);
-
-          // If empty when rounded, use floor instead.
-          if (d1[0] >= d1[1]) {
-            d1[0] = d3.timeYear.floor(d0[0]);
-            d1[1] = d3.timeYear.offset(d1[0]);
-          }
-          d3.select(this).call(d3.event.target.move, d1.map(x2));
-          var year1 = d1[0].getFullYear();
-          var year2 = d1[1].getFullYear()
-
-            if(changeline) {
-                funcajax("test2",comarcaline,year1,year2,family);
-                funcMap(comarcaline+".json");
-
-                AjaxMap2("test2",comarcaline,year1,year2,family);
-                Map2(comarcaline+".json");
-
-                waffle2Ajax("wafflePersones",year1,year2,comarcaline);
-
-                setTimeout(function(){
-                    waffle2Draw();
-                },500);
-            }
-            else {
-                funcajax("test","",year1,year2,family);
-                funcMap("comarques.json");
-
-                AjaxMap2("test","",year1,year2,family);
-                Map2("comarques.json");
-
-                waffle2Ajax("wafflePersones",year1,year2);
-
-                setTimeout(function(){
-                    waffle2Draw();
-                },500);
-            }
-            waffleTotAjax("waffle",comarcaline,year1,year2);
-            waffleAjax("waffle2",comarcaline,year1,year2,family);
-
-            setTimeout(function(){
-                waffleDraw();
-            },500);
-
-
-        }
-
-
-
 
 
 
