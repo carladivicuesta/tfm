@@ -29,8 +29,8 @@ var datal1;
   };
 
 var linechartDraw = function() {
-    var margin = {top: 10, right: 20, bottom: 20, left: 80},
-        margin2 = {top: 430, right: 20, bottom: 20, left: 40},
+    var margin = {top: 10, right: 190, bottom: 20, left: 80},
+        margin2 = {top: 430, right: 150, bottom: 20, left: 40},
         widthl = 1100 - margin.left - margin.right,
         heightl = 500 - margin.top - margin.bottom,
         heightl2 = 500 - margin2.top - margin2.bottom;
@@ -39,10 +39,20 @@ var linechartDraw = function() {
     var range = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a","#d62728", "#ff9896", "#9467bd", "#c5b0d5"];
     var color = d3.scale.ordinal().domain(domainw1).range(range);
 
+    function legendLine(text) {
+        if (text == "A") return "Làctics i derivats";
+        else if (text == "B") return "Farines i derivats";
+        else if (text == "C") return "Arròs, pasta, sucre i llegums";
+        else if (text == "D") return "Conserves i plats preparats";
+        else if (text == "E") return "Olis i greixos";
+        else if (text == "F") return "Carn, peix i embotits";
+        else if (text == "G") return "Begudes i infusions";
+        else if (text == "H") return "Fruites i verdures fresques";
+        else return text;
+    }
+
     var parseDate = d3.timeParse("%Y");
-    var bisectDate = d3.bisector(function(d) { return d.year; }).left;
-    //var parseDate = d3.timeParse("%Y-%m");
-     
+
     var x = d3.scaleTime().range([0, widthl]),
         x2 = d3.scaleTime().range([0, widthl]),
         y = d3.scaleLinear().range([heightl2, 0]),
@@ -129,6 +139,12 @@ var linechartDraw = function() {
             .style("stroke-width", "2px")
             .attr("clip-path", "url(#clip)");
 
+    contextlineGroups.append("text")
+        .attr("y", function(d) { return y2(d.values[d.values.length-1].QUANTITAT); })
+        .attr("x",850)
+        .text(function(d) { return legendLine(d.key); });
+
+
     var tooltip = d3.select("body")
         .append("div")
         .attr("class", "waffle-tooltip")
@@ -165,17 +181,7 @@ var linechartDraw = function() {
         tooltip
             .style("left", (d3.event.pageX + 0 ) + "px")
             .style("top", (d3.event.pageY + - 30) + "px");
-//old
-        /*
-        var x0 = x.invert(d3.mouse(this)[0]),
-            i = bisectDate(datal1, x0, 1),
-            d0 = datal1[i - 1],
-            d1 = datal1[i];
-            //d = x0 - d0.YEARS > d1.YEARS - x0 ? d1 : d0;
-        focus.attr("transform", "translate(" + x(d.YEARS) + "," + y(d.QUANTITAT) + ")");
-        focus.select("text").text(function() { return d.QUANTITAT; });
-        focus.select(".x-hover-line").attr("y2", height - y(d.QUANTITAT));
-        focus.select(".y-hover-line").attr("x2", width + width);*/
+
     }
 
 
