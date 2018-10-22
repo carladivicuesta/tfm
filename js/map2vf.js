@@ -162,7 +162,18 @@ var family = ["A","B","C","D","E","F","G","H","I"];
                 waffle2Draw();
             },500);
 		};
-		
+
+          var focusm2 = function(d){
+              var div = document.getElementById('tooltipmap2');
+              div.style.display="block"; //this will show the element
+              div.style.left = event.pageX -350 + 'px'; //we position it near the area
+              div.style.top = event.pageY -320 + 'px';
+              div.innerHTML = "<b>" + dataKV2[d.id].COMARCA+ "</b>" ;//we fill the tooltip with the county's name
+          };
+          var focusoutm2 = function(d){
+              document.getElementById('tooltipmap2')
+                  .style.display="none"; //this will hide the element
+          }
 				
         //Enter
         catalonia2.enter()
@@ -170,7 +181,12 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('class',"comarca")
            .attr('d', path2)
            .style("stroke", "#000")
+            .style("cursor","pointer")
 		   .attr('id',function(d){return "cid-" +d.id})
+            .on("mouseover",focusm2)
+            .on("focus",focusm2)
+            .on("mouseout",focusoutm2)
+            .on("blur",focusoutm2)
 		   .on("click",changemap2)
 		   .attr("fill", function(d) {
 				return color2(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS);
@@ -245,6 +261,21 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         catalonia2 = map2.selectAll(".comarca") 
 					.data(comarques.features);
 
+          var focusm21 = function(d){
+              var div = document.getElementById('tooltipmap2');
+              div.style.display="block"; //this will show the element
+              div.style.left = event.pageX -350 + 'px'; //we position it near the area
+              div.style.top = event.pageY -320 + 'px';
+              var muni;
+              if (d.properties.NOM_MUNI == "Barcelona") muni = d.properties.N_Distri;
+              else muni = d.properties.NOM_MUNI;
+              div.innerHTML = "<b>" + muni + "</b>" ;//we fill the tooltip with the county's name
+          };
+          var focusoutm21 = function(d){
+              document.getElementById('tooltipmap2')
+                  .style.display="none"; //this will hide the element
+          }
+
 				
         //Enter
         catalonia2.enter()
@@ -253,6 +284,10 @@ var family = ["A","B","C","D","E","F","G","H","I"];
            .attr('d', path2)
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .style("stroke", "#000")
+            .on("mouseover",focusm21)
+            .on("focus",focusm21)
+            .on("mouseout",focusoutm21)
+            .on("blur",focusoutm21)
 		   .attr("fill", function(d) {
 		   		if(dataKV2[d.id]) {
 		   			console.log("hab",dataKV2[+d.id].QUANTITAT,d.properties.HABITANTS);

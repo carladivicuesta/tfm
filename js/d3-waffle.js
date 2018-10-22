@@ -59,20 +59,22 @@ function d3waffle() {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .style("cursor", "default");
+      if(data[0].name != "Persones") {
+          var tooltip = d3.select("body")
+              .append("div")
+              .attr("class", "waffle-tooltip")
+              .style("position", "absolute")
+              .style("text-align", "right")
+              .style("background", "#333")
+              .style("margin", "3px")
+              .style("color","white")
+              .style("padding","3px")
+              .style("border","0px")
+              .style("border-radius","3px") // 3px rule
+              .style("opacity",0)
+              .style("cursor", "default");
+      }
 
-      var tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "waffle-tooltip")
-            .style("position", "absolute")
-            .style("text-align", "right")
-            .style("background", "#333")
-            .style("margin", "3px")
-            .style("color","white")
-            .style("padding","3px")
-            .style("border","0px")
-            .style("border-radius","3px") // 3px rule
-            .style("opacity",0)
-            .style("cursor", "default");
 
       var nodes = svg.selectAll(".node")
             .data(detaildata)

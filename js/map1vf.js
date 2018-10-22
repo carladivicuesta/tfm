@@ -149,6 +149,18 @@ var family = ["A","B","C","D","E","F","G","H","I"];
             },500);
 		  
 		};
+
+          var focus = function(d){
+              var div = document.getElementById('tooltipmap');
+              div.style.display="block"; //this will show the element
+              div.style.left = event.pageX -350 + 'px'; //we position it near the area
+              div.style.top = event.pageY -320 + 'px';
+              div.innerHTML = "<b>" + dataKV[d.id].COMARCA+ "</b>" ;//we fill the tooltip with the county's name
+          };
+          var focusout = function(d){
+              document.getElementById('tooltipmap')
+                  .style.display="none"; //this will hide the element
+          }
 		
 				
         //Enter
@@ -157,8 +169,13 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		   .attr('class',"comarca")
            .attr('d', path)
            .style("stroke", "#000")
+            .style("cursor","pointer")
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .on("click",changemap)
+            .on("mouseover",focus)
+              .on("focus",focus)
+              .on("mouseout",focusout)
+              .on("blur",focusout)
 		   .attr("fill", function(d) {
 				return color1(dataKV[d.id].QUANTITAT);
 			});
@@ -184,7 +201,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
       function processMun(topo,data){ 
 		//topo holds info from comarques.topojson; data holds info from població.csv
 		topo.objects['com']
-			.geometries.forEach(function(d) { console.log("map",d); d.id = +d.properties.MUNICIPI;});
+			.geometries.forEach(function(d) { d.id = +d.properties.MUNICIPI;});
 		// CODICOMAR as id
 		var quantmax2 = 0;
 		data1.forEach ( function(d) {
@@ -203,7 +220,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
           svg.select(".legendQuant")
               .call(legend);
           /* end of legend */
-		var dataKV = data1.reduce(function(res,el) { 
+		var dataKV = data1.reduce(function(res,el) {
 			res[el.MUNICIPI] = el; 
 			return res; },{});
 
@@ -227,6 +244,21 @@ var family = ["A","B","C","D","E","F","G","H","I"];
         catalonia = map.selectAll(".comarca") 
 					.data(comarques.features);
 
+          var focusm1 = function(d){
+              var div = document.getElementById('tooltipmap');
+              div.style.display="block"; //this will show the element
+              div.style.left = event.pageX -350 + 'px'; //we position it near the area
+              div.style.top = event.pageY -320 + 'px';
+              var muni;
+              if (d.properties.NOM_MUNI == "Barcelona") muni = d.properties.N_Distri;
+              else muni = d.properties.NOM_MUNI;
+              div.innerHTML = "<b>" + muni + "</b>" ;//we fill the tooltip with the county's name
+          };
+          var focusoutm1 = function(d){
+              document.getElementById('tooltipmap')
+                  .style.display="none"; //this will hide the element
+          }
+
 				
         //Enter
         catalonia.enter()
@@ -235,6 +267,10 @@ var family = ["A","B","C","D","E","F","G","H","I"];
            .attr('d', path)
 		   .attr('id',function(d){return "cid-" +d.id})
 		   .style("stroke", "#000")
+            .on("mouseover",focusm1)
+            .on("focus",focusm1)
+            .on("mouseout",focusoutm1)
+            .on("blur",focusoutm1)
 		   .attr("fill", function(d) {
 		   		if(dataKV[d.id]) return color1(dataKV[+d.id].QUANTITAT);
 		   		else return color1(0);

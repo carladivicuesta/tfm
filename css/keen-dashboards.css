@@ -196,3 +196,20 @@ ul.breadcrumb li a:hover {
 }
 .ui-slider-range { background: 	#bbbbbb;
   border-color: #bbbbbb;}
+
+
+.tooltipmap {
+  position: absolute;
+  background: #333;
+  color: white;
+  text-align: right;
+  margin: 3px;
+  border-radius: 3px;
+  padding: 3px;
+  border: 0px;
+  opacity: 5;
+}
+
+#Persones {
+  display: none;
+}
