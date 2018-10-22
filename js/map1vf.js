@@ -117,8 +117,8 @@ var families = ["A","B","C","D","E","F","G","H","I"];
             var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
             addBreadcrumb(d.id);
 
-            funcajax("test2",str,year1,year2,families);
-            AjaxMap2("test2",str,year1,year2,families);
+            funcajax("mapmunicipi",str,year1,year2,families);
+            AjaxMap2("mapmunicipi",str,year1,year2,families);
             d3.selectAll(".boundary").remove();
             d3.selectAll(".chartline").remove();
 			setTimeout(function(){
@@ -294,8 +294,8 @@ var families = ["A","B","C","D","E","F","G","H","I"];
       };
 
      function returnMap(y1,y2,fam) {
-        funcajax("test","",y1,y2,fam);
-        AjaxMap2("test","",y1,y2,fam);
+        funcajax("mapcomarca","",y1,y2,fam);
+        AjaxMap2("mapcomarca","",y1,y2,fam);
         d3.selectAll(".boundary").remove();
 
         setTimeout(function(){
@@ -309,5 +309,5 @@ var families = ["A","B","C","D","E","F","G","H","I"];
      };
 
 
-     funcajax("test","",year1index,year2index,families);
+     funcajax("mapcomarca","",year1index,year2index,families);
    funcMap("comarques.json");
