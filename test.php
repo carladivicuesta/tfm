@@ -6,8 +6,8 @@ header('Content-type: application/json');
 
 $conn = OpenCon();
 $families = "";
-$y1 = 2000;
-$y2 = 2018;
+$y1 = $yearinitial -1;
+$y2 = $yearfi +1;
 if( isset($_GET['param4']) ) {
     //$families = $_GET['param'];
     $families = implode('", "', $_GET['param4']);

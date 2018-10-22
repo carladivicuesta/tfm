@@ -1,7 +1,5 @@
 var data1;
-var year1 = 2000;
-var year2 = 2017;
-var family = ["A","B","C","D","E","F","G","H","I"];
+var families = ["A","B","C","D","E","F","G","H","I"];
 	var width  = 600,
     	height = 290,
 	      projection = d3.geoMercator(),
@@ -18,17 +16,17 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		//.domain([10000,20000,30000,50000,100000,200000,800000,1500000])
 		.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
-  	var funcajax = function(name,comarca,y1,y2,families) {
+  	var funcajax = function(name,comarca,y1,y2,family) {
 		year1 = y1;
 		year2 = y2;
-		family = families;
+        families = family;
   		$(function () {
 		    //-----------------------------------------------------------------------
 		    // 2) Send a http request with AJAX http://api.jquery.com/jQuery.ajax/
 		    //-----------------------------------------------------------------------
 		    $.ajax({
 		      url: name+'.php',                  //the script to call to get data
-				data: {'param' : comarca, 'param2': year1, 'param3': year2, 'param4': family},                                 //for example "id=5&parent=6"
+				data: {'param' : comarca, 'param2': year1, 'param3': year2, 'param4': families},                                 //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
 		      success: function(data)          //on recieve of reply
 		      {
@@ -120,7 +118,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 
             funcajax("test2",str,year1,year2,families);
             AjaxMap2("test2",str,year1,year2,families);
-            addBreadcrumb(d.id);
+            addBreadcrumb(d.id, year1,year2);
             d3.selectAll(".boundary").remove();
             d3.selectAll(".chartline").remove();
 			setTimeout(function(){
@@ -147,7 +145,7 @@ var family = ["A","B","C","D","E","F","G","H","I"];
             setTimeout(function(){
                 waffle2Draw();
             },500);
-		  
+
 		};
 
           var focus = function(d){
@@ -309,5 +307,5 @@ var family = ["A","B","C","D","E","F","G","H","I"];
      };
 
 
-   funcajax("test");
+     funcajax("test","",year1index,year2index,families);
    funcMap("comarques.json");

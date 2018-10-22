@@ -6,10 +6,8 @@ header('Content-type: application/json');
 
 $conn = OpenCon();
 
-$Y1 = 2007;
-$Y2 = 2018;
-$jsondata = array();
-
+$Y1 = $yearinitial -1;
+$Y2 = $yearfi +1;
 if( isset($_GET['param']) ) {
         $Y1 = $_GET['param']-1;
 

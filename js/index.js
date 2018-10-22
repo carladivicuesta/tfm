@@ -1,8 +1,7 @@
 var families = ["A","B","C","D","E","F","G","H","I"];
-var year1index = 2007;
-var year2index = 2017;
 var comarcaact2 = "comarcas_year_food";
 var comarca = false;
+var coma;
 
 function totalFunction() {
   // Get the checkbox
@@ -99,6 +98,8 @@ function typeFamilyFunction() {
 }
 
 $( function() {
+//    year1index = $("#yearinitial").val();
+
     $( "#slider-range" ).slider({
 
         orientation: "vertical",
@@ -145,8 +146,8 @@ $( function() {
                 waffleDraw();
             },500);
 
-
-            $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1index +' fins '+ year2index;
+            if(comarca) $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ coma+' durant els anys '+ year1index +' fins '+ year2index;
+            else $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la provincia de Barcelona durant els anys '+ year1index +' fins '+ year2index;
 
         }
 
@@ -161,12 +162,13 @@ $( function() {
 } );
 
 function addBreadcrumb(com) {
+     coma = com;
     $(function(){
         $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
-            '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+com+'</li>';
+            '      <li><a href="#" onclick="removeBreadcrumb()">Comarques</a></li><li>'+coma+'</li>';
 
-        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ com+' durant els anys 2008 fins 2017';
+        $("#title")[0].innerHTML = 'Estadístiques de la repartició d\'aliments a la comarca de '+ coma+' durant els anys '+ year1index +' fins '+ year2index;
 
     });
 

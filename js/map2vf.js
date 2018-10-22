@@ -1,6 +1,5 @@
 var data2;
-var year1 = 2000;
-var year2 = 2017;
+
 var family = ["A","B","C","D","E","F","G","H","I"];
 	var width2  = 600,
     	height2 = 290,
@@ -316,5 +315,5 @@ var family = ["A","B","C","D","E","F","G","H","I"];
       };
 
 
-   AjaxMap2("test");
+   AjaxMap2("test","",year1,year2,families);
    Map2("comarques.json");

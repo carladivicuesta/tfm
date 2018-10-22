@@ -5,8 +5,8 @@ include 'db_connection.php';
 header('Content-type: application/json');
 
 $conn = OpenCon();
-$Y1 = 2000;
-$Y2 = 2017;
+$Y1 = $yearinitial -1;
+$Y2 = $yearfi +1;
 $comarca = "";
 
 if( isset($_GET['param']) ) {
