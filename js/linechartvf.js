@@ -1,4 +1,4 @@
-
+console.log("yearindex",year2index);
 var datal1;
   var parseDate = d3.timeParse("%Y");
   var total;

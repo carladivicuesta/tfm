@@ -166,8 +166,8 @@ var family = ["A","B","C","D","E","F","G","H","I"];
               var div = document.getElementById('tooltipmap2');
               div.style.display="block"; //this will show the element
               div.style.left = event.pageX -350 + 'px'; //we position it near the area
-              div.style.top = event.pageY -320 + 'px';
-              div.innerHTML = "<b>" + dataKV2[d.id].COMARCA+ "</b>" ;//we fill the tooltip with the county's name
+              div.style.top = event.pageY -350 + 'px';
+              div.innerHTML = "<b>" + dataKV2[d.id].COMARCA+ "</b><br>" +  (Math.round(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS  * 100) / 100).toLocaleString() + " Kg/habitants";
           };
           var focusoutm2 = function(d){
               document.getElementById('tooltipmap2')
@@ -264,11 +264,13 @@ var family = ["A","B","C","D","E","F","G","H","I"];
               var div = document.getElementById('tooltipmap2');
               div.style.display="block"; //this will show the element
               div.style.left = event.pageX -350 + 'px'; //we position it near the area
-              div.style.top = event.pageY -320 + 'px';
-              var muni;
+              div.style.top = event.pageY -350 + 'px';
+              var muni, kilos;
               if (d.properties.NOM_MUNI == "Barcelona") muni = d.properties.N_Distri;
               else muni = d.properties.NOM_MUNI;
-              div.innerHTML = "<b>" + muni + "</b>" ;//we fill the tooltip with the county's name
+              if(dataKV2[d.id]) kilos = (Math.round(dataKV2[d.id].QUANTITAT/d.properties.HABITANTS * 100) / 100).toLocaleString();
+              else kilos = 0
+              div.innerHTML = "<b>" + muni + "</b><br>" + kilos  + " Kg/habitants";
           };
           var focusoutm21 = function(d){
               document.getElementById('tooltipmap2')
@@ -289,7 +291,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
             .on("blur",focusoutm21)
 		   .attr("fill", function(d) {
 		   		if(dataKV2[d.id]) {
-		   			console.log("hab",dataKV2[+d.id].QUANTITAT,d.properties.HABITANTS);
                     return color2(dataKV2[+d.id].QUANTITAT/d.properties.HABITANTS);
                 }
 

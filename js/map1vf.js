@@ -115,10 +115,10 @@ var families = ["A","B","C","D","E","F","G","H","I"];
 
 		var changemap = function(d) {
             var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+            addBreadcrumb(d.id);
 
             funcajax("test2",str,year1,year2,families);
             AjaxMap2("test2",str,year1,year2,families);
-            addBreadcrumb(d.id, year1,year2);
             d3.selectAll(".boundary").remove();
             d3.selectAll(".chartline").remove();
 			setTimeout(function(){
@@ -152,8 +152,8 @@ var families = ["A","B","C","D","E","F","G","H","I"];
               var div = document.getElementById('tooltipmap');
               div.style.display="block"; //this will show the element
               div.style.left = event.pageX -350 + 'px'; //we position it near the area
-              div.style.top = event.pageY -320 + 'px';
-              div.innerHTML = "<b>" + dataKV[d.id].COMARCA+ "</b>" ;//we fill the tooltip with the county's name
+              div.style.top = event.pageY -350 + 'px';
+              div.innerHTML = "<b>" + dataKV[d.id].COMARCA+ "</b><br>" +  (Math.round(dataKV[d.id].QUANTITAT * 100) / 100).toLocaleString() + " Kg";
           };
           var focusout = function(d){
               document.getElementById('tooltipmap')
@@ -246,11 +246,13 @@ var families = ["A","B","C","D","E","F","G","H","I"];
               var div = document.getElementById('tooltipmap');
               div.style.display="block"; //this will show the element
               div.style.left = event.pageX -350 + 'px'; //we position it near the area
-              div.style.top = event.pageY -320 + 'px';
-              var muni;
+              div.style.top = event.pageY -350 + 'px';
+              var muni, kilos;
               if (d.properties.NOM_MUNI == "Barcelona") muni = d.properties.N_Distri;
               else muni = d.properties.NOM_MUNI;
-              div.innerHTML = "<b>" + muni + "</b>" ;//we fill the tooltip with the county's name
+              if(dataKV[d.id]) kilos = (Math.round(dataKV[d.id].QUANTITAT * 100) / 100).toLocaleString();
+              else kilos = 0
+              div.innerHTML = "<b>" + muni + "</b><br>" + kilos  + " Kg";
           };
           var focusoutm1 = function(d){
               document.getElementById('tooltipmap')

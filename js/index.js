@@ -3,6 +3,7 @@ var comarcaact2 = "comarcas_year_food";
 var comarca = false;
 var coma;
 
+
 function totalFunction() {
   // Get the checkbox
   var checkBox = document.getElementById("totalCheck");
@@ -98,19 +99,18 @@ function typeFamilyFunction() {
 }
 
 $( function() {
-//    year1index = $("#yearinitial").val();
 
     $( "#slider-range" ).slider({
 
         orientation: "vertical",
         range: true,
-        min: 2007,
-        max: 2017,
-        values: [ 2007, 2017 ],
+        min: yearmin,
+        max: yearmax,
+        values: [ yearmin, yearmax ],
         slide: function( event, ui ) {
            // $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-            year1index = 2017 - ui.values[ 1 ] + 2007;
-            year2index = 2017 - ui.values[ 0 ] + 2007;
+            year1index = yearmax - ui.values[ 1 ] + yearmin;
+            year2index = yearmax - ui.values[ 0 ] + yearmin;
 
             $( "#amount" ).val(year1index + " - " + year2index);
             if(comarca) {
@@ -163,6 +163,8 @@ $( function() {
 
 function addBreadcrumb(com) {
      coma = com;
+     if(!year1index) year1index = $("#yearinitial").text().replace(/\s/g, "");
+    if(!year2index) year2index = $("#yearfi").text().replace(/\s/g, "");
     $(function(){
         $("#breadcrumb")[0].innerHTML = '<li><a href="#">Inici</a></li>\n' +
             '      <li><a href="#">El Banc dels Aliments</a></li>\n' +
