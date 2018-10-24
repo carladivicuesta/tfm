@@ -19,17 +19,17 @@ function totalFunction() {
       d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact2,year1index,year2index,families);
+          funcajax("mapmunicipi",comarcaact2,year1index,year2index,families);
           funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact2,year1index,year2index,families);
+          AjaxMap2("mapmunicipi",comarcaact2,year1index,year2index,families);
           Map2(comarcaact2+".json");
       }
       else {
-          funcajax("test","",year1index,year2index,families);
+          funcajax("mapcomarca","",year1index,year2index,families);
           funcMap("comarques.json");
 
-          AjaxMap2("test","",year1index,year2index,families);
+          AjaxMap2("mapcomarca","",year1index,year2index,families);
           Map2("comarques.json");
       }
       linechartAjax("linechart",comarcaact2,families);
@@ -65,17 +65,17 @@ function typeFamilyFunction() {
     d3.select("#chart-line svg").remove();
 
       if(comarca) {
-          funcajax("test2",comarcaact2,year1index,year2index,families);
+          funcajax("mapmunicipi",comarcaact2,year1index,year2index,families);
           funcMap(comarcaact2+".json");
 
-          AjaxMap2("test2",comarcaact2,year1index,year2index,families);
+          AjaxMap2("mapmunicipi",comarcaact2,year1index,year2index,families);
           Map2(comarcaact2+".json");
       }
       else {
-          funcajax("test","",year1index,year2index,families);
+          funcajax("mapcomarca","",year1index,year2index,families);
           funcMap("comarques.json");
 
-          AjaxMap2("test","",year1index,year2index,families);
+          AjaxMap2("mapcomarca","",year1index,year2index,families);
           Map2("comarques.json");
       }
 
@@ -114,10 +114,10 @@ $( function() {
 
             $( "#amount" ).val(year1index + " - " + year2index);
             if(comarca) {
-                funcajax("test2",comarcaact2,year1index,year2index,families);
+                funcajax("mapmunicipi",comarcaact2,year1index,year2index,families);
                 funcMap(comarcaact2+".json");
 
-                AjaxMap2("test2",comarcaact2,year1index,year2index,families);
+                AjaxMap2("mapmunicipi",comarcaact2,year1index,year2index,families);
                 Map2(comarcaact2+".json");
 
                 waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ],comarcaact2);
@@ -127,10 +127,10 @@ $( function() {
                 },500);
             }
             else {
-                funcajax("test","",year1index,year2index,families);
+                funcajax("mapcomarca","",year1index,year2index,families);
                 funcMap("comarques.json");
 
-                AjaxMap2("test","",year1index,year2index,families);
+                AjaxMap2("mapcomarca","",year1index,year2index,families);
                 Map2("comarques.json");
 
                 waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);

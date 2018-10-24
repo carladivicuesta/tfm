@@ -136,13 +136,17 @@ var linechartDraw = function() {
             .attr("class", "line")
             .attr("d", function(d) { return line2(d.values); })
             .style("stroke", function(d) {return color(d.key);})
-            .style("stroke-width", "2px")
-            .attr("clip-path", "url(#clip)");
+            .style("stroke-width", "2.3px")
+            .attr("clip-path", "url(#clip)")
+            .on("mouseover", mouseoverl)
+            .on("mouseout", mouseoutl);
 
     contextlineGroups.append("text")
+        .attr("id",function(d) { return d.key;})
         .attr("y", function(d) { return y2(d.values[d.values.length-1].QUANTITAT); })
         .attr("x",850)
-        .text(function(d) { return legendLine(d.key); });
+        .text(function(d) { return legendLine(d.key); })
+        .style("display","none");
 
 
     var tooltip = d3.select("body")
@@ -160,7 +164,7 @@ var linechartDraw = function() {
         .style("cursor", "default");
 
     function mouseover(d){
-
+        d3.select("#"+d.MACROFAMILIA).style("display","block");
         tooltip.transition().duration(100).style("opacity", .9);
         var num = Math.round(+d.QUANTITAT * 100)/100;
         num = num.toLocaleString();
@@ -169,12 +173,15 @@ var linechartDraw = function() {
         var idcontainer = d.YEARS.getYear() + d.MACROFAMILIA;
         d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 0.2);
         d3.select("#" + idcontainer).selectAll("text." + d.class).transition().duration(100).style("opacity", 1);
+
     }
 
     function mouseout(d){
+        d3.select("#"+d.MACROFAMILIA).style("display","none");
         var idcontainer = d.YEARS.getYear() + d.MACROFAMILIA;
         tooltip.transition().duration(100).style("opacity", 0);
         d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 1);
+
     }
 
     function mousemove(d){
@@ -183,6 +190,16 @@ var linechartDraw = function() {
             .style("top", (d3.event.pageY + - 30) + "px");
 
     }
+
+    function mouseoverl(d){
+        console.log("entra",d);
+        d3.select("#"+d.key).style("display","block");
+    }
+
+    function mouseoutl(d){
+        d3.select("#"+d.key).style("display","none");
+    }
+
 
 
     contextlineGroups.selectAll("dot")

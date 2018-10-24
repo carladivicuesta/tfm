@@ -67,7 +67,9 @@
         });
         changew = false;
     }
+    var kilostotal = 0;
     var domain = dataw1.map(function(el) {
+        kilostotal += +el.QUANTITAT;
         return {
             name: el.MACROFAMILIA,
             value: el.QUANTITAT/totalWaf*100,
@@ -90,7 +92,7 @@
 
 
 
-    $( "#numkilos" ).val((Math.round(total * 100) / 100).toLocaleString() + " Kg");
+    $( "#numkilos" ).val((Math.round(kilostotal * 100) / 100).toLocaleString() + " Kg");
 
   };
 
@@ -155,15 +157,15 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
       $( "#numpers" ).val((Math.round(totalp * 100) / 100).toLocaleString() + " Persones");
   };
 
-waffleTotAjax("waffle","comarcas_year_food",2007,2017);
-waffleAjax("waffle2","comarcas_year_food",2007,2017);
+waffleTotAjax("waffle","comarcas_year_food",year1index,year2index);
+waffleAjax("waffle2","comarcas_year_food",year1index,year2index);
 
 
 setTimeout(function(){
     waffleDraw();
 },500);
 
-waffle2Ajax("wafflePersones",2007,2017);
+waffle2Ajax("wafflePersones",year1index,year2index);
 
 
 setTimeout(function(){

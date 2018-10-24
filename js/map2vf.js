@@ -132,8 +132,8 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		var changemap2 = function(d) {
             var str = d.id.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
 
-            funcajax("test2",str,year1,year2,families);
-            AjaxMap2("test2",str,year1,year2,families);
+            funcajax("mapmunicipi",str,year1,year2,families);
+            AjaxMap2("mapmunicipi",str,year1,year2,families);
             addBreadcrumb(d.id);
             d3.selectAll(".boundary").remove();
             d3.selectAll(".chartline").remove();
@@ -316,5 +316,5 @@ var family = ["A","B","C","D","E","F","G","H","I"];
       };
 
 
-   AjaxMap2("test","",year1,year2,families);
+   AjaxMap2("mapcomarca","",year1,year2,families);
    Map2("comarques.json");
