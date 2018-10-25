@@ -120,7 +120,7 @@ $( function() {
                 AjaxMap2("mapmunicipi",comarcaact2,year1index,year2index,families);
                 Map2(comarcaact2+".json");
 
-                waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ],comarcaact2);
+                waffle2Ajax("wafflePersones",year1index,year2index,comarcaact2);
 
                 setTimeout(function(){
                     waffle2Draw();
@@ -133,7 +133,7 @@ $( function() {
                 AjaxMap2("mapcomarca","",year1index,year2index,families);
                 Map2("comarques.json");
 
-                waffle2Ajax("wafflePersones",ui.values[ 0 ],ui.values[ 1 ]);
+                waffle2Ajax("wafflePersones",year1index,year2index);
 
                 setTimeout(function(){
                     waffle2Draw();

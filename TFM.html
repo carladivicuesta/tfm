@@ -99,7 +99,7 @@
               <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; max-width: 80px"></label>
             </p>
             <div class="row">
-              <div class="col-md-1">
+              <div id="slideryear" class="col-md-1">
                 <p id="yearinitial"> <?php echo $yearinitial; ?>  </p><br>
                 <?php
                   for($cont = 2; $cont < $yearfi - $yearinitial; $cont=$cont+2) {
@@ -107,9 +107,9 @@
                 <?php
                   }
                 ?>
-                <p id="yearfi"> <?php echo $yearfi; ?></p><br></div>
+                <p id="yearfi"> <?php echo $yearfi; ?></p></div>
 
-            <div class="col-md-1" id="slider-range" style="height:268px; margin-left: 35px; margin-top: 2px;"></div>
+            <div class="col-md-1 slid" id="slider-range" style="margin-left: 35px; margin-top: 2px;"></div>
             </div>
           </div>
         </div>

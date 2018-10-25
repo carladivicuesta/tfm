@@ -213,3 +213,10 @@ ul.breadcrumb li a:hover {
 #Persones {
   display: none;
 }
+
+[class*="col-md-1"] {
+  float: none;
+  display: table-cell;
+  vertical-align: top;
+  width: unset;
+}

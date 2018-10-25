@@ -128,7 +128,7 @@ var waffle2Ajax = function(name,year1,year2,comarca) {
     var domain = dataw2.map(function(el) {
         totalp = el.quantitat;
         if(el.quantitat <8000000) pers = 8000000/total1*100;
-        else pers = el.quantitat/total1*100
+        else pers = el.quantitat/total1*100;
       return {
           name: "Persones",
           value: pers,
