@@ -1,8 +1,20 @@
 # TFM
 
-## Deployment
+## Visualització Banc dels Aliments
 
-In this repository you can find the code of the project. In order to show the proper visualization, this project needs a mySQL DB running in the server.
-The visualizations will be shown at a demonstration during the final presentation.
+### Instal·lació XAMPP
 
+Instal·lar XAMPP i canviar configuració php.ini:
 
+post_max_size = 20M
+max_execution_time = 300
+max_input_time = 600
+upload_max_filesize = 20M
+
+### Importació base de dades
+
+Importar base de dades a través de phpMyAdmin
+
+### Baixar codi del github
+
+Anar a l'arrel C:/xampp/htdocs clonar aquest repositori.
