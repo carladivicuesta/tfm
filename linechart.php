@@ -15,13 +15,10 @@ if( isset($_GET['param']) ) {
 }
 
 if( isset($_GET['param2']) ) {
-        //$families = $_GET['param'];
         $families = implode('", "', $_GET['param2']);
         $families = '"'.$families.'"';
 } 
-else {
-  //echo("no entra");
-}
+
 $sql = "SELECT YEARS, MACROFAMILIA, sum(QUANTITAT) AS QUANTITAT FROM $comarca WHERE YEARS > $yearinitial-1 AND MACROFAMILIA IN ($families) GROUP BY YEARS, MACROFAMILIA";
 
   //--------------------------------------------------------------------------

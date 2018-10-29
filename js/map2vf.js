@@ -32,7 +32,6 @@ var family = ["A","B","C","D","E","F","G","H","I"];
 		      success: function(data)          //on recieve of reply
 		      {
 		      	data2 = data;
-		      	console.log("map2 year:",year1,year2);
 
 		        } 
 		    });

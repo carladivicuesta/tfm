@@ -28,3 +28,4 @@ Anar a l'arrel C:/xampp/htdocs clonar aquest repositori.
 S'haurien d'afegir dades a la base de dades respecte els anys i sobre el codi només caldria modificar el fitxer: variables.php on es poden modificar els anys d'inici i fi.
 
 
+
