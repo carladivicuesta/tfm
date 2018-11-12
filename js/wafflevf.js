@@ -92,7 +92,7 @@
 
 
 
-    $( "#numkilos" ).val((Math.round(kilostotal * 100) / 100).toLocaleString() + " Kg");
+    $( "#numkilos" ).val(Math.round(kilostotal).toLocaleString() + " Kg");
 
   };
 

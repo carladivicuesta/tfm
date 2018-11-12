@@ -153,7 +153,7 @@ var families = ["A","B","C","D","E","F","G","H","I"];
               div.style.display="block"; //this will show the element
               div.style.left = event.pageX -350 + 'px'; //we position it near the area
               div.style.top = event.pageY -350 + 'px';
-              div.innerHTML = "<b>" + dataKV[d.id].COMARCA+ "</b><br>" +  (Math.round(dataKV[d.id].QUANTITAT * 100) / 100).toLocaleString() + " Kg";
+              div.innerHTML = "<b>" + dataKV[d.id].COMARCA+ "</b><br>" +  Math.round(dataKV[d.id].QUANTITAT).toLocaleString() + " Kg";
           };
           var focusout = function(d){
               document.getElementById('tooltipmap')

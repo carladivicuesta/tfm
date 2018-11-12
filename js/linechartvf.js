@@ -176,7 +176,7 @@ var linechartDraw = function() {
         var noded = d3.select("#"+d.MACROFAMILIA).node()
         c.appendChild(noded);
         tooltip.transition().duration(100).style("opacity", .9);
-        var num = Math.round(+d.QUANTITAT * 100)/100;
+        var num = Math.round(+d.QUANTITAT);
         num = num.toLocaleString();
         txt = "<b>" + num + " Kg</b><br>"
         tooltip.html(txt);
